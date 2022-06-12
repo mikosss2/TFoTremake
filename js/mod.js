@@ -1,26 +1,69 @@
 let modInfo = {
-	name: "The ??? Tree",
-	id: "mymod",
-	author: "nobody",
-	pointsName: "points",
-	modFiles: ["layers.js", "tree.js"],
+	name: "The Function of Time Tree",
+	id: "tfotremake",
+	author: "mikosss",
+	pointsName: "Time",
+	modFiles: [
+		"layers/01_ghostlayers.js",
+		"layers/02_ach.js",
+		"layers/11_foft.js",
+		"layers/12_upg.js",
+		"layers/13_res.js",
+		"layers/14_tmach.js",
+		"layers/20_pres.js",
+		"tree.js"
+	],
 
 	discordName: "",
 	discordLink: "",
-	initialStartPoints: new Decimal (10), // Used for hard resets and new players
+	initialStartPoints: new Decimal (1), // Used for hard resets and new players
 	offlineLimit: 1,  // In hours
 }
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
-	name: "Literally nothing",
+	num: "1.0.2",
+	name: "Release Update",
 }
 
-let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.`
+let changelog = `<h1>Changelog:</h1><br><br>
+<h3 style="color: #BF40BF">v1.0.2</h3><br>
+	- Endgame is currently achievement 'Prestige'<br>
+	- Released<br><br>
+<h3 style="color: #BF40BF">v1.0.0</h3><br>
+	- Added Prestige Layer<br><br>
+<h2 style="color: #BF40BF">Release Update</h2><br><br>
+<h3 style="color: #FFE4B5">v0.4.16</h3><br>
+	- Completed 16 achievements out of 40<br><br>
+<h3 style="color: #FFE4B5">v0.4.0</h3><br>
+	- Added Achievements<br><br>
+<h2 style="color: #FFE4B5">Achivements Update</h2><br><br>
+<h3 style="color: #D0B49F">v0.3.4</h3><br>
+	- Added T.F.G.E.<br>
+	- Added Warp Warp Time<br>
+	- Added Time Fragments Generator<br>
+	- Added Wrap Time<br><br>
+<h3 style="color: #D0B49F">v0.3.0</h3><br>
+	- Added Time Machine<br><br>
+<h2 style="color: #D0B49F">Time Machine Update</h2><br><br>
+<h3 style="color: #234F1E">v0.2.17</h3><br>
+	- Added 5 Res-Upgrades<br>
+	- Added 5 'U' Upgrades<br>
+	- Added 2 Research Upgrade Buyable<br>
+	- Added 5 Variable Upgrade Buyable<br><br>
+<h3 style="color: #234F1E">v0.2.0</h3><br>
+	- Added Research<br><br>
+<h2 style="color: #234F1E">Research Update</h2><br><br>
+<h3 style="color: #FFE338">v0.1.5</h3><br>
+	- Added 5 'U' Upgades<br><br>
+<h3 style="color: #FFE338">v0.1.0</h3><br>
+	- Added 'U' Upgrades<br><br>
+<h2 style="color: #FFE338">Upgrade Update</h2><br><br>
+<h3 style="color: #63C5DA">v0.0.4</h3><br>
+	- Added 4 variables<br><br>
+<h3 style="color: #63C5DA">v0.0.0</h3><br>
+	- Added f(t) Layer<br><br>
+<h2 style="color: #63C5DA">Origins</h2><br><br>`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
@@ -43,6 +86,7 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
+	gain = gain.add(buyableEffect("tm",12))
 	return gain
 }
 
@@ -56,7 +100,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e280000000"))
+	return hasAchievement("A",51)
 }
 
 
