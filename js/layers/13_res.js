@@ -7,12 +7,13 @@ addLayer("res", {
                 "blank",
                 ["display-text", function() { return "You Have <h2><b style='color:#63C5DA;'>" + format(player["f"].points) + "</b></h2> f(t)" },],
                 "blank",
-                "clickables",
                 ["display-text", function() { return "<h3> Research Upgrades </h3>" },],
+                ["clickable", 11],
                 ["row", [["buyable", 11], ["buyable", 12]]],
                 "blank",
                 ["display-text", function() { return "<h3> Variable Upgrades </h3>" },],
-                ["row", [["buyable", 21]]],
+                ["clickable", 21],
+                ["row", [["buyable", 21], ["buyable", 22]]],
                 ["row", [["buyable", 31], ["buyable", 32]]],
                 ["row", [["buyable", 41], ["buyable", 42]]],
                 "blank",
@@ -22,6 +23,7 @@ addLayer("res", {
             content:[
                 "main-display",                
                 "blank",
+                ["clickable", 31],
                 "upgrades",
             ],
             unlocked() {return hasUpgrade("u",21)},
@@ -39,12 +41,55 @@ addLayer("res", {
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
-        pTime: new Decimal(0),
     }},
     passiveGeneration() { return true },
     type: "normal", 
     clickables: {
-
+        11: {
+            display() {return "<h2>Buy Max"},
+            canClick() {return true},
+            onClick() {
+                buyMaxBuyable("res", 11) & buyMaxBuyable("res", 12)
+            },
+            onHold() {
+                buyMaxBuyable("res", 11) & buyMaxBuyable("res", 12)
+            },
+            style() {
+                return {"border-radius": "15px 15px 0px 0px", "width": "600px", "min-height": "40px"}
+            },
+            unlocked() {return hasAchievement("A", 34)}
+        },
+        21: {
+            display() {return "<h2>Buy Max"},
+            canClick() {return true},
+            onClick() {
+                buyMaxBuyable("res", 21) & buyMaxBuyable("res", 22) & buyMaxBuyable("res", 31) & buyMaxBuyable("res", 32) & buyMaxBuyable("res", 41) & buyMaxBuyable("res", 42)
+            },
+            onHold() {
+                buyMaxBuyable("res", 21) & buyMaxBuyable("res", 22) & buyMaxBuyable("res", 31) & buyMaxBuyable("res", 32) & buyMaxBuyable("res", 41) & buyMaxBuyable("res", 42)
+            },
+            style() {
+                if (tmp["res"].buyables[22].unlocked) return {"border-radius": "15px 15px 0px 0px", "width": "600px", "min-height": "40px"}
+                else return {"border-radius": "15px 15px 0px 0px", "width": "300px", "min-height": "40px"}
+            },
+            unlocked() {return hasAchievement("A", 25)}
+        },
+        31: {
+            display() {return "<h2>Buy All"},
+            canClick() {return true},
+            onClick() {
+                buyUpgrade("res", 11) & buyUpgrade("res", 12) & buyUpgrade("res", 13) & buyUpgrade("res", 14) & buyUpgrade("res", 15)
+                buyUpgrade("res", 21) & buyUpgrade("res", 22) & buyUpgrade("res", 23) & buyUpgrade("res", 24) & buyUpgrade("res", 25)
+            },
+            onHold() {
+                buyUpgrade("res", 11) & buyUpgrade("res", 12) & buyUpgrade("res", 13) & buyUpgrade("res", 14) & buyUpgrade("res", 15)
+                buyUpgrade("res", 21) & buyUpgrade("res", 22) & buyUpgrade("res", 23) & buyUpgrade("res", 24) & buyUpgrade("res", 25)
+            },
+            style() {
+                return {"border-radius": "15px 15px 0px 0px", "width": "600px", "min-height": "40px"}
+            },
+            unlocked() {return hasAchievement("A", 35)}
+        },
     },
     buyables: {
         11: {
@@ -56,13 +101,20 @@ addLayer("res", {
                 player["f"].points = player["f"].points.sub(this.cost())
                 setBuyableAmount("res", 11, getBuyableAmount("res", 11).add(1))
             },
+            buyMax() {
+                getMax(player["f"].points.abs(), this.cost(), 1.5)
+                subCost(1.5, getBuyableAmount("res", 11), 100000000)
+                player["f"].points = player["f"].points.sub(new Decimal(sub))
+                setBuyableAmount("res", 11, getBuyableAmount("res", 11).add(new Decimal(max)))
+            },
             effect() { 
                 eff = new Decimal(0)
                 eff = eff.add(new Decimal(0.01).mul(getBuyableAmount("res", 11)))
                 return eff
             },
             style(){ 
-                return {"border-radius": "15px 0px 0px 15px", "width": "300px", "height": "120px"}
+                if (tmp["res"].clickables[11].unlocked) return {"border-radius": "0px 0px 0px 15px", "width": "300px", "height": "120px"}
+                else return {"border-radius": "15px 0px 0px 15px", "width": "300px", "height": "120px"}
             },
             unlocked() {
                 return true
@@ -77,13 +129,20 @@ addLayer("res", {
                 player["f"].points = player["f"].points.sub(this.cost())
                 setBuyableAmount("res", 12, getBuyableAmount("res", 12).add(1))
             },
+            buyMax() {
+                getMax(player["f"].points.abs(), this.cost(), 1.5)
+                subCost(1.5, getBuyableAmount("res", 12), 100000000)
+                player["f"].points = player["f"].points.sub(new Decimal(sub))
+                setBuyableAmount("res", 12, getBuyableAmount("res", 12).add(new Decimal(max)))
+            },
             effect() { 
                 eff = new Decimal(1)
                 eff = eff.mul(new Decimal(1.05).pow(getBuyableAmount("res", 12)))
                 return eff
             },
             style(){ 
-                return {"border-radius": "0px 15px 15px 0px", "width": "300px", "height": "120px"}
+                if (tmp["res"].clickables[11].unlocked) return {"border-radius": "0px 0px 15px 0px", "width": "300px", "height": "120px"}
+                else return {"border-radius": "0px 15px 15px 0px", "width": "300px", "height": "120px"}
             },
             unlocked() {
                 return true
@@ -92,42 +151,112 @@ addLayer("res", {
         21: {
             title() {return "'U' Variable Upgrade"},
             cost(x) { return new Decimal(1).mul(new Decimal(10).pow(x))},
-            display() { return "<b>x2</b> 'U' variable value <br> Currently: <b> x" + format(tmp.res.buyables[21].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 21)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 21))) + " Knowledge" },
+            display() { 
+                if (hasUpgrade("res",21)) return "<b>x2.5</b> 'U' variable value <br> Currently: <b> x" + format(tmp.res.buyables[21].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 21)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 21))) + " Knowledge" 
+                else return "<b>x2</b> 'U' variable value <br> Currently: <b> x" + format(tmp.res.buyables[21].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 21)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 21))) + " Knowledge" 
+            },
             canAfford() { return player["res"].points.gte(this.cost()) },
             buy() {
                 player["res"].points = player["res"].points.sub(this.cost())
                 setBuyableAmount("res", 21, getBuyableAmount("res", 21).add(1))
             },
+            buyMax() {
+                getMax(player["res"].points.abs(), this.cost(), 10)
+                subCost(10, getBuyableAmount("res", 21), 1)
+                player["res"].points = player["res"].points.sub(new Decimal(sub))
+                setBuyableAmount("res", 21, getBuyableAmount("res", 21).add(new Decimal(max)))
+            },
             effect() { 
-                eff = new Decimal(1)
-                eff = eff.mul(new Decimal(2).pow(getBuyableAmount("res", 21)))
+                eff = new Decimal(2)
+                if (hasUpgrade("res",21)) eff = eff.add(0.5)
+                eff = eff.pow(getBuyableAmount("res", 21))
                 return eff
             },
             style(){ 
-                if (player["res"].points.gte(this.cost())) return {'background-color': '#FFE338',"border-radius": "15px 15px 0px 0px", "width": "300px", "height": "120px"}
-                else return {"border-radius": "15px 15px 0px 0px", "width": "300px", "height": "120px"}
+                if (player["res"].points.gte(this.cost())) {
+                    if (tmp["res"].clickables[21].unlocked) return {'background-color': '#FFE338', "border-radius": "0px 0px 0px 0px", "width": "300px", "height": "120px"}
+                    else if (tmp["res"].buyables[22].unlocked) return {'background-color': '#FFE338', "border-radius": "15px 0px 0px 0px", "width": "300px", "height": "120px"}
+                    else return {'background-color': '#FFE338', "border-radius": "15px 15px 0px 0px", "width": "300px", "height": "120px"}
+                }
+                else {
+                    if (tmp["res"].clickables[21].unlocked) return {"border-radius": "0px 0px 0px 0px", "width": "300px", "height": "120px"}
+                    else if (tmp["res"].buyables[22].unlocked) return { "border-radius": "15px 0px 0px 0px", "width": "300px", "height": "120px"}
+                    else return {"border-radius": "15px 15px 0px 0px", "width": "300px", "height": "120px"}
+                }
             },
             unlocked() {
                 return true
             }
         },
+        22: {
+            title() {return "'pU' Variable Upgrade"},
+            cost(x) { return new Decimal(1).mul(new Decimal(1000).pow(x))},
+            display() { 
+                return "<b>x2</b> 'pU' variable value <br> Currently: <b> x" + format(tmp.res.buyables[22].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 22)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 22))) + " Knowledge" 
+            },
+            canAfford() { return player["res"].points.gte(this.cost()) },
+            buy() {
+                player["res"].points = player["res"].points.sub(this.cost())
+                setBuyableAmount("res", 22, getBuyableAmount("res", 22).add(1))
+            },
+            buyMax() {
+                getMax(player["res"].points.abs(), this.cost(), 1000)
+                subCost(1000, getBuyableAmount("res", 22), 1)
+                player["res"].points = player["res"].points.sub(new Decimal(sub))
+                setBuyableAmount("res", 22, getBuyableAmount("res", 22).add(new Decimal(max)))
+            },
+            effect() { 
+                eff = new Decimal(2)
+                eff = eff.pow(getBuyableAmount("res", 22))
+                return eff
+            },
+            style(){ 
+                if (player["res"].points.gte(this.cost())) {
+                    if (tmp["res"].clickables[21].unlocked) return {'background-color': '#970439', "border-radius": "0px 0px 0px 0px", "width": "300px", "height": "120px"}
+                    else return {'background-color': '#970439', "border-radius": "0px 15px 0px 0px", "width": "300px", "height": "120px"}
+                }
+                else {
+                    if (tmp["res"].clickables[21].unlocked) return {"border-radius": "0px 0px 0px 0px", "width": "300px", "height": "120px"}
+                    else return {"border-radius": "0px 15px 0px 0px", "width": "300px", "height": "120px"}
+                }
+            },
+            unlocked() {
+                return hasUpgrade("pu",23)
+            }
+        },
         31: {
             title() {return "'a' Variable Upgrade"},
             cost(x) { return new Decimal(1).mul(new Decimal(1.0964).pow(x))},
-            display() { return "<b>+1%</b> 'a' variable value <br> Currrently: <b>x" + format(tmp.res.buyables[31].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 31)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 31))) + " Knowledge"},
+            display() { 
+                if (hasUpgrade("res",22)) return "<b>x1.01</b> 'a' variable value <br> Currrently: <b>x" + format(tmp.res.buyables[31].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 31)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 31))) + " Knowledge"
+                else return "<b>+1%</b> 'a' variable value <br> Currrently: <b>x" + format(tmp.res.buyables[31].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 31)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 31))) + " Knowledge"
+            },
             canAfford() { return player["res"].points.gte(this.cost()) },
             buy() {
                 player["res"].points = player["res"].points.sub(this.cost())
                 setBuyableAmount("res", 31, getBuyableAmount("res", 31).add(1))
             },
+            buyMax() {
+                getMax(player["res"].points.abs(), this.cost(), 1.0964)
+                subCost(1.0964, getBuyableAmount("res", 31), 1)
+                player["res"].points = player["res"].points.sub(new Decimal(sub))
+                setBuyableAmount("res", 31, getBuyableAmount("res", 31).add(new Decimal(max)))
+            },
             effect() { 
                 eff = new Decimal(1)
-                eff = eff.add(new Decimal(0.01).mul(getBuyableAmount("res", 31)))
+                if (hasUpgrade("res",22)) eff = eff.mul(new Decimal(1.01).pow(getBuyableAmount("res", 31)))
+                else eff = eff.add(new Decimal(0.01).mul(getBuyableAmount("res", 31)))
                 return eff
             },
             style(){ 
-                if (player["res"].points.gte(this.cost())) return {'background-color': '#63C5DA',"border-radius": "15px 0px 0px 0px", "width": "300px", "height": "120px"}
-                else return {"border-radius": "15px 0px 0px 0px", "width": "300px", "height": "120px"}
+                if (player["res"].points.gte(this.cost())) {
+                    if (tmp["res"].buyables[22].unlocked)  return {'background-color': '#63C5DA',"border-radius": "0px 0px 0px 0px", "width": "300px", "height": "120px"}
+                    else return {'background-color': '#63C5DA',"border-radius": "15px 0px 0px 0px", "width": "300px", "height": "120px"}
+                }
+                else {
+                    if (tmp["res"].buyables[22].unlocked)  return {"border-radius": "0px 0px 0px 0px", "width": "300px", "height": "120px"}
+                    else return {"border-radius": "15px 0px 0px 0px", "width": "300px", "height": "120px"}
+                }
             },
             unlocked() {
                 return true
@@ -136,20 +265,36 @@ addLayer("res", {
         32: {
             title() {return "'b' Variable Upgrade"},
             cost(x) { return new Decimal(1).mul(new Decimal(1.0964).pow(x))},
-            display() { return "<b>+1%</b> 'b' variable value <br> Currrently: <b>x" + format(tmp.res.buyables[32].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 32)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 32))) + " Knowledge"},
+            display() { 
+                if (hasUpgrade("res",23)) return "<b>x1.01</b> 'b' variable value <br> Currrently: <b>x" + format(tmp.res.buyables[32].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 32)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 32))) + " Knowledge"
+                else return "<b>+1%</b> 'b' variable value <br> Currrently: <b>x" + format(tmp.res.buyables[32].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 32)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 32))) + " Knowledge"
+            },
             canAfford() { return player["res"].points.gte(this.cost()) },
             buy() {
                 player["res"].points = player["res"].points.sub(this.cost())
                 setBuyableAmount("res", 32, getBuyableAmount("res", 32).add(1))
             },
+            buyMax() {
+                getMax(player["res"].points.abs(), this.cost(), 1.0964)
+                subCost(1.0964, getBuyableAmount("res", 32), 1)
+                player["res"].points = player["res"].points.sub(new Decimal(sub))
+                setBuyableAmount("res", 32, getBuyableAmount("res", 32).add(new Decimal(max)))
+            },
             effect() { 
                 eff = new Decimal(1)
-                eff = eff.add(new Decimal(0.01).mul(getBuyableAmount("res", 32)))
+                if (hasUpgrade("res",23)) eff = eff.mul(new Decimal(1.01).pow(getBuyableAmount("res", 32)))
+                else eff = eff.add(new Decimal(0.01).mul(getBuyableAmount("res", 32)))
                 return eff
             },
             style(){ 
-                if (player["res"].points.gte(this.cost())) return {'background-color': '#63C5DA',"border-radius": "0px 15px 0px 0px", "width": "300px", "height": "120px"}
-                else return {"border-radius": "0px 15px 0px 0px", "width": "300px", "height": "120px"}
+                if (player["res"].points.gte(this.cost())) {
+                    if (tmp["res"].buyables[22].unlocked)  return {'background-color': '#63C5DA',"border-radius": "0px 0px 0px 0px", "width": "300px", "height": "120px"}
+                    else return {'background-color': '#63C5DA',"border-radius": "0px 15px 0px 0px", "width": "300px", "height": "120px"}
+                }
+                else {
+                    if (tmp["res"].buyables[22].unlocked)  return {"border-radius": "0px 0px 0px 0px", "width": "300px", "height": "120px"}
+                    else return {"border-radius": "0px 15px 0px 0px", "width": "300px", "height": "120px"}
+                }
             },
             unlocked() {
                 return true
@@ -158,15 +303,25 @@ addLayer("res", {
         41: {
             title() {return "'c' Variable Upgrade"},
             cost(x) { return new Decimal(1).mul(new Decimal(1.0964).pow(x))},
-            display() { return "<b>+1%</b> 'c' variable value <br> Currrently: <b>x" + format(tmp.res.buyables[41].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 41)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 41))) + " Knowledge"},
+            display() { 
+                if (hasUpgrade("res",24)) return "<b>x1.01</b> 'c' variable value <br> Currrently: <b>x" + format(tmp.res.buyables[41].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 41)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 41))) + " Knowledge"
+                else return "<b>+1%</b> 'c' variable value <br> Currrently: <b>x" + format(tmp.res.buyables[41].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 41)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 41))) + " Knowledge"
+            },
             canAfford() { return player["res"].points.gte(this.cost()) },
             buy() {
                 player["res"].points = player["res"].points.sub(this.cost())
                 setBuyableAmount("res", 41, getBuyableAmount("res", 41).add(1))
             },
+            buyMax() {
+                getMax(player["res"].points.abs(), this.cost(), 1.0964)
+                subCost(1.0964, getBuyableAmount("res", 41), 1)
+                player["res"].points = player["res"].points.sub(new Decimal(sub))
+                setBuyableAmount("res", 41, getBuyableAmount("res", 41).add(new Decimal(max)))
+            },
             effect() { 
                 eff = new Decimal(1)
-                eff = eff.add(new Decimal(0.01).mul(getBuyableAmount("res", 41)))
+                if (hasUpgrade("res",24)) eff = eff.mul(new Decimal(1.01).pow(getBuyableAmount("res", 41)))
+                else eff = eff.add(new Decimal(0.01).mul(getBuyableAmount("res", 41)))
                 return eff
             },
             style(){ 
@@ -180,15 +335,25 @@ addLayer("res", {
         42: {
             title() {return "'d' Variable Upgrade"},
             cost(x) { return new Decimal(1).mul(new Decimal(1.0964).pow(x))},
-            display() { return "<b>+1%</b> 'd' variable value <br> Currrently: <b>x" + format(tmp.res.buyables[42].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 42)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 42))) + " Knowledge"},
+            display() { 
+                if (hasUpgrade("res",25)) return "<b>x1.01</b> 'd' variable value <br> Currrently: <b>x" + format(tmp.res.buyables[42].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 42)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 42))) + " Knowledge"
+                else return "<b>+1%</b> 'd' variable value <br> Currrently: <b>x" + format(tmp.res.buyables[42].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 42)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 42))) + " Knowledge"
+            },
             canAfford() { return player["res"].points.gte(this.cost()) },
             buy() {
                 player["res"].points = player["res"].points.sub(this.cost())
                 setBuyableAmount("res", 42, getBuyableAmount("res", 42).add(1))
             },
+            buyMax() {
+                getMax(player["res"].points.abs(), this.cost(), 1.0964)
+                subCost(1.0964, getBuyableAmount("res", 32), 1)
+                player["res"].points = player["res"].points.sub(new Decimal(sub))
+                setBuyableAmount("res", 42, getBuyableAmount("res", 42).add(new Decimal(max)))
+            },
             effect() { 
                 eff = new Decimal(1)
-                eff = eff.add(new Decimal(0.01).mul(getBuyableAmount("res", 42)))
+                if (hasUpgrade("res",25)) eff = eff.mul(new Decimal(1.01).pow(getBuyableAmount("res", 42)))
+                else eff = eff.add(new Decimal(0.01).mul(getBuyableAmount("res", 42)))
                 return eff
             },
             style(){ 
@@ -214,7 +379,9 @@ addLayer("res", {
                 return eff
             },
             style(){ 
-                return {"border-radius": "15px 0px 0px 15px", "width": "120px", "height": "135px"}
+                if (tmp["res"].clickables[31].unlocked) return {"border-radius": "0px 0px 0px 0px",'width': '120px', 'height': '135px'}
+                else if (tmp["res"].upgrades[21].unlocked) return {"border-radius": "15px 0px 0px 0px",'width': '120px', 'height': '135px'}
+                else return {"border-radius": "15px 0px 0px 15px", "width": "120px", "height": "135px"}
             },
             unlocked() {return hasUpgrade("u",21)},
         },
@@ -244,7 +411,7 @@ addLayer("res", {
         },
         13: {
             title: "Res-Upgrade 1.3",
-            description: "<b>x1.01</b> gained Knowledge every 'a, b, c, & d' Variable bought divided by 2 <br> Max = x100",
+            description: "<b>x1.01</b> gained Knowledge every 'a, b, c, & d' Variable bought divided by 2 <br> Max = x32",
             cost: new Decimal(640),
             currencyDisplayName: "Knowledge",
             currencyInternalName: "points",
@@ -252,7 +419,7 @@ addLayer("res", {
             effect() {
                 eff = new Decimal(1)
                 eff = eff.mul(new Decimal(1.01).pow(getBuyableAmount("f",11).add(getBuyableAmount("f",21)).add(getBuyableAmount("f",31)).add(getBuyableAmount("f",41)).div(2)))
-                if (eff.gte(100)) eff = new Decimal(100)
+                if (eff.gte(32)) eff = new Decimal(32)
                 return eff
             },
             effectDisplay() {
@@ -265,7 +432,7 @@ addLayer("res", {
         },
         14: {
             title: "Res-Upgrade 1.4",
-            description: "<b>x1.01</b> gained Knowledge every Variable Upgrades bought divided by 2 <br> Max = x100",
+            description: "<b>x1.01</b> gained Knowledge every Variable Upgrades bought divided by 2 <br> Max = x32",
             cost: new Decimal(5120),
             currencyDisplayName: "Knowledge",
             currencyInternalName: "points",
@@ -273,7 +440,7 @@ addLayer("res", {
             effect() {
                 eff = new Decimal(1)
                 eff = eff.mul(new Decimal(1.01).pow(getBuyableAmount("res",21).add(getBuyableAmount("res",31)).add(getBuyableAmount("res",32)).add(getBuyableAmount("res",41)).add(getBuyableAmount("res",42)).div(2)))
-                if (eff.gte(100)) eff = new Decimal(100)
+                if (eff.gte(32)) eff = new Decimal(32)
                 return eff
             },
             effectDisplay() {
@@ -292,9 +459,71 @@ addLayer("res", {
             currencyInternalName: "points",
             currencyLayer: "res",
             style(){ 
-                return {"border-radius": "0px 15px 15px 0px", "width": "120px", "height": "135px"}
+                if (tmp["res"].clickables[31].unlocked) return {"border-radius": "0px 0px 0px 0px",'width': '120px', 'height': '135px'}
+                else if (tmp["res"].upgrades[25].unlocked) return {"border-radius": "0px 15px 0px 0px",'width': '120px', 'height': '135px'}
+                else return {"border-radius": "0px 15px 15px 0px", "width": "120px", "height": "135px"}
             },
             unlocked() {return hasUpgrade("u",21)},
+        },
+        21: {
+            title: "Res-Upgrade 2.1",
+            description: "<b>Enhance</b> the base of 'U' Variable Upgrade (x2 -> x2.5)",
+            cost: new Decimal(1e14),
+            currencyDisplayName: "Knowledge",
+            currencyInternalName: "points",
+            currencyLayer: "res",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 15px", "width": "120px", "height": "135px"}
+            },
+            unlocked() {return hasUpgrade("pu",14)},
+        },
+        22: {
+            title: "Res-Upgrade 2.2",
+            description: "<b>Enhance</b> the effect of 'a' Variable Upgrade (+1% -> x1.01)",
+            cost: new Decimal(1e15),
+            currencyDisplayName: "Knowledge",
+            currencyInternalName: "points",
+            currencyLayer: "res",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px", "width": "120px", "height": "135px"}
+            },
+            unlocked() {return hasUpgrade("pu",14)},
+        },
+        23: {
+            title: "Res-Upgrade 2.3",
+            description: "<b>Enhance</b> the effect of 'b' Variable Upgrade (+1% -> x1.01)",
+            cost: new Decimal(1e16),
+            currencyDisplayName: "Knowledge",
+            currencyInternalName: "points",
+            currencyLayer: "res",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px", "width": "120px", "height": "135px"}
+            },
+            unlocked() {return hasUpgrade("pu",14)},
+        },
+        24: {
+            title: "Res-Upgrade 2.4",
+            description: "<b>Enhance</b> the effect of 'c' Variable Upgrade (+1% -> x1.01)",
+            cost: new Decimal(1e17),
+            currencyDisplayName: "Knowledge",
+            currencyInternalName: "points",
+            currencyLayer: "res",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px", "width": "120px", "height": "135px"}
+            },
+            unlocked() {return hasUpgrade("pu",14)},
+        },
+        25: {
+            title: "Res-Upgrade 2.5",
+            description: "<b>Enhance</b> the effect of 'd' Variable Upgrade (+1% -> x1.01)",
+            cost: new Decimal(1e18),
+            currencyDisplayName: "Knowledge",
+            currencyInternalName: "points",
+            currencyLayer: "res",
+            style(){ 
+                return {"border-radius": "0px 0px 15px 0px", "width": "120px", "height": "135px"}
+            },
+            unlocked() {return hasUpgrade("pu",14)},
         },
     },
     automate() {
@@ -328,5 +557,11 @@ addLayer("res", {
     row: 0,
     displayRow: 1,
     branches: ["f"],
-    layerShown(){return hasUpgrade("u",14) || hasAchievement("A", 31)},
+    layerShown(){return hasUpgrade("u",14) || hasAchievement("A", 31)}, 
+    doReset(resettingLayer) {
+        let keep=[];
+        if (layers[resettingLayer].row > this.row) {layerDataReset("res", keep);
+        if (hasAchievement("A", 31)) player[this.layer].upgrades = player[this.layer].upgrades.concat([15]);
+        }
+    },
 })

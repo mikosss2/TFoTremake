@@ -6,11 +6,14 @@ let modInfo = {
 	modFiles: [
 		"layers/01_ghostlayers.js",
 		"layers/02_ach.js",
+		"layers/03_functions.js",
 		"layers/11_foft.js",
 		"layers/12_upg.js",
 		"layers/13_res.js",
 		"layers/14_tmach.js",
 		"layers/20_pres.js",
+		"layers/21_goft.js",
+		"layers/22_pupg.js",
 		"tree.js"
 	],
 
@@ -22,11 +25,24 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.0.2",
-	name: "Release Update",
+	num: "1.1.48",
+	name: "Another Upgrade Update",
 }
 
 let changelog = `<h1>Changelog:</h1><br><br>
+<h3 style="color: #BF40BF">v1.1.48</h3><br>
+	- Endgame is currently infinite f(t) 
+	- Added 2 buyables<br>
+	- Added 25 upgrades<br>
+	- Added 8 achievements that gives reward<br>
+	- Completed 28 achivements out of 48<br><br>
+<h3 style="color: #BF40BF">v1.1.0</h3><br>
+	- Added 'pU' Upgrades<br><br>
+<h2 style="color: #BF40BF">Another Upgrade Update</h2><br><br>
+<h3 style="color: #BF40BF">v1.0.15</h3><br>
+	- Added 5 Pres-Upgrades<br>
+	- Added 4 variable boosts<br>
+	- Added 4 variables<br><br>
 <h3 style="color: #BF40BF">v1.0.2</h3><br>
 	- Endgame is currently achievement 'Prestige'<br>
 	- Released<br><br>
@@ -100,7 +116,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return hasAchievement("A",51)
+	return player["f"].points.gte(new Decimal(2).pow(1024))
 }
 
 
