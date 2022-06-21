@@ -25,20 +25,22 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.1.48",
+	num: "1.1.49",
 	name: "Another Upgrade Update",
 }
 
 let changelog = `<h1>Changelog:</h1><br><br>
-<h3 style="color: #BF40BF">v1.1.48</h3><br>
-	- Endgame is currently infinite f(t) 
+<h3 style="color: #970439">v1.1.49</h3><br>
+	- Fixed interface<br><br>
+<h3 style="color: #970439">v1.1.48</h3><br>
+	- Endgame is currently infinite f(t) <br>
 	- Added 2 buyables<br>
 	- Added 25 upgrades<br>
 	- Added 8 achievements that gives reward<br>
 	- Completed 28 achivements out of 48<br><br>
-<h3 style="color: #BF40BF">v1.1.0</h3><br>
+<h3 style="color: #970439">v1.1.0</h3><br>
 	- Added 'pU' Upgrades<br><br>
-<h2 style="color: #BF40BF">Another Upgrade Update</h2><br><br>
+<h2 style="color: #970439">Another Upgrade Update</h2><br><br>
 <h3 style="color: #BF40BF">v1.0.15</h3><br>
 	- Added 5 Pres-Upgrades<br>
 	- Added 4 variable boosts<br>
