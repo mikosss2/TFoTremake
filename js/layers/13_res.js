@@ -98,13 +98,13 @@ addLayer("res", {
             display() { return "Increase the value of knowlege gain additively <b>(+0.01)</b> <br> Currrently: <b>+" + format(tmp.res.buyables[11].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 11)) + ")" + "<br> Cost: <b style='color:red;'> f(t) = " + format(this.cost(getBuyableAmount("res", 11)))},
             canAfford() { return player["f"].points.gte(this.cost()) },
             buy() {
-                player["f"].points = player["f"].points.sub(this.cost())
+                if (!hasChallenge("inf",21)) player["f"].points = player["f"].points.sub(this.cost())
                 setBuyableAmount("res", 11, getBuyableAmount("res", 11).add(1))
             },
             buyMax() {
                 getMax(player["f"].points.abs(), this.cost(), 1.5)
                 subCost(1.5, getBuyableAmount("res", 11), 100000000)
-                player["f"].points = player["f"].points.sub(new Decimal(sub))
+                if (!hasChallenge("inf",21)) player["f"].points = player["f"].points.sub(new Decimal(sub))
                 setBuyableAmount("res", 11, getBuyableAmount("res", 11).add(new Decimal(max)))
             },
             effect() { 
@@ -126,13 +126,13 @@ addLayer("res", {
             display() { return "Increase the value of knowlege gain additively <b>(x1.05)</b> Currrently: <b>x" + format(tmp.res.buyables[12].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 12)) + ")" + "<br> Cost: <b style='color:red;'> f(t) = " + format(this.cost(getBuyableAmount("res", 12)))},
             canAfford() { return player["f"].points.gte(this.cost()) },
             buy() {
-                player["f"].points = player["f"].points.sub(this.cost())
+                if (!hasChallenge("inf",21)) player["f"].points = player["f"].points.sub(this.cost())
                 setBuyableAmount("res", 12, getBuyableAmount("res", 12).add(1))
             },
             buyMax() {
                 getMax(player["f"].points.abs(), this.cost(), 1.5)
                 subCost(1.5, getBuyableAmount("res", 12), 100000000)
-                player["f"].points = player["f"].points.sub(new Decimal(sub))
+                if (!hasChallenge("inf",21)) player["f"].points = player["f"].points.sub(new Decimal(sub))
                 setBuyableAmount("res", 12, getBuyableAmount("res", 12).add(new Decimal(max)))
             },
             effect() { 
@@ -157,13 +157,13 @@ addLayer("res", {
             },
             canAfford() { return player["res"].points.gte(this.cost()) },
             buy() {
-                player["res"].points = player["res"].points.sub(this.cost())
+                if (!hasChallenge("inf",22)) player["res"].points = player["res"].points.sub(this.cost())
                 setBuyableAmount("res", 21, getBuyableAmount("res", 21).add(1))
             },
             buyMax() {
                 getMax(player["res"].points.abs(), this.cost(), 10)
                 subCost(10, getBuyableAmount("res", 21), 1)
-                player["res"].points = player["res"].points.sub(new Decimal(sub))
+                if (!hasChallenge("inf",22)) player["res"].points = player["res"].points.sub(new Decimal(sub))
                 setBuyableAmount("res", 21, getBuyableAmount("res", 21).add(new Decimal(max)))
             },
             effect() { 
@@ -196,13 +196,13 @@ addLayer("res", {
             },
             canAfford() { return player["res"].points.gte(this.cost()) },
             buy() {
-                player["res"].points = player["res"].points.sub(this.cost())
+                if (!hasChallenge("inf",22)) player["res"].points = player["res"].points.sub(this.cost())
                 setBuyableAmount("res", 22, getBuyableAmount("res", 22).add(1))
             },
             buyMax() {
                 getMax(player["res"].points.abs(), this.cost(), 1000)
                 subCost(1000, getBuyableAmount("res", 22), 1)
-                player["res"].points = player["res"].points.sub(new Decimal(sub))
+                if (!hasChallenge("inf",22)) player["res"].points = player["res"].points.sub(new Decimal(sub))
                 setBuyableAmount("res", 22, getBuyableAmount("res", 22).add(new Decimal(max)))
             },
             effect() { 
@@ -233,13 +233,13 @@ addLayer("res", {
             },
             canAfford() { return player["res"].points.gte(this.cost()) },
             buy() {
-                player["res"].points = player["res"].points.sub(this.cost())
+                if (!hasChallenge("inf",22)) player["res"].points = player["res"].points.sub(this.cost())
                 setBuyableAmount("res", 31, getBuyableAmount("res", 31).add(1))
             },
             buyMax() {
                 getMax(player["res"].points.abs(), this.cost(), 1.0964)
                 subCost(1.0964, getBuyableAmount("res", 31), 1)
-                player["res"].points = player["res"].points.sub(new Decimal(sub))
+                if (!hasChallenge("inf",22)) player["res"].points = player["res"].points.sub(new Decimal(sub))
                 setBuyableAmount("res", 31, getBuyableAmount("res", 31).add(new Decimal(max)))
             },
             effect() { 
@@ -271,13 +271,13 @@ addLayer("res", {
             },
             canAfford() { return player["res"].points.gte(this.cost()) },
             buy() {
-                player["res"].points = player["res"].points.sub(this.cost())
+                if (!hasChallenge("inf",22)) player["res"].points = player["res"].points.sub(this.cost())
                 setBuyableAmount("res", 32, getBuyableAmount("res", 32).add(1))
             },
             buyMax() {
                 getMax(player["res"].points.abs(), this.cost(), 1.0964)
                 subCost(1.0964, getBuyableAmount("res", 32), 1)
-                player["res"].points = player["res"].points.sub(new Decimal(sub))
+                if (!hasChallenge("inf",22)) player["res"].points = player["res"].points.sub(new Decimal(sub))
                 setBuyableAmount("res", 32, getBuyableAmount("res", 32).add(new Decimal(max)))
             },
             effect() { 
@@ -309,13 +309,13 @@ addLayer("res", {
             },
             canAfford() { return player["res"].points.gte(this.cost()) },
             buy() {
-                player["res"].points = player["res"].points.sub(this.cost())
+                if (!hasChallenge("inf",22)) player["res"].points = player["res"].points.sub(this.cost())
                 setBuyableAmount("res", 41, getBuyableAmount("res", 41).add(1))
             },
             buyMax() {
                 getMax(player["res"].points.abs(), this.cost(), 1.0964)
                 subCost(1.0964, getBuyableAmount("res", 41), 1)
-                player["res"].points = player["res"].points.sub(new Decimal(sub))
+                if (!hasChallenge("inf",22)) player["res"].points = player["res"].points.sub(new Decimal(sub))
                 setBuyableAmount("res", 41, getBuyableAmount("res", 41).add(new Decimal(max)))
             },
             effect() { 
@@ -341,13 +341,13 @@ addLayer("res", {
             },
             canAfford() { return player["res"].points.gte(this.cost()) },
             buy() {
-                player["res"].points = player["res"].points.sub(this.cost())
+                if (!hasChallenge("inf",22)) player["res"].points = player["res"].points.sub(this.cost())
                 setBuyableAmount("res", 42, getBuyableAmount("res", 42).add(1))
             },
             buyMax() {
                 getMax(player["res"].points.abs(), this.cost(), 1.0964)
                 subCost(1.0964, getBuyableAmount("res", 32), 1)
-                player["res"].points = player["res"].points.sub(new Decimal(sub))
+                if (!hasChallenge("inf",22)) player["res"].points = player["res"].points.sub(new Decimal(sub))
                 setBuyableAmount("res", 42, getBuyableAmount("res", 42).add(new Decimal(max)))
             },
             effect() { 
@@ -527,7 +527,30 @@ addLayer("res", {
         },
     },
     automate() {
-
+        if (getClickableState("auto", 1301) == true) {
+            (getClickableState("auto", 1311) ? buyMaxBuyable("res", 11) : false),
+            (getClickableState("auto", 1312) ? buyMaxBuyable("res", 12) : false)
+        }
+        else if (getClickableState("auto", 1301) == false) {
+            (getClickableState("auto", 1311) ? buyBuyable("res", 11) : false),
+            (getClickableState("auto", 1312) ? buyBuyable("res", 12) : false)
+        }
+        if (getClickableState("auto", 1302) == true) {
+            (getClickableState("auto", 1321) ? buyMaxBuyable("res", 21) : false),
+            (getClickableState("auto", 1322) ? buyMaxBuyable("res", 22) : false),
+            (getClickableState("auto", 1331) ? buyMaxBuyable("res", 31) : false),
+            (getClickableState("auto", 1332) ? buyMaxBuyable("res", 32) : false),
+            (getClickableState("auto", 1341) ? buyMaxBuyable("res", 41) : false),
+            (getClickableState("auto", 1342) ? buyMaxBuyable("res", 42) : false)
+        }
+        else if (getClickableState("auto", 1302) == false) {
+            (getClickableState("auto", 1321) ? buyBuyable("res", 21) : false),
+            (getClickableState("auto", 1322) ? buyBuyable("res", 22) : false),
+            (getClickableState("auto", 1331) ? buyBuyable("res", 31) : false),
+            (getClickableState("auto", 1332) ? buyBuyable("res", 32) : false),
+            (getClickableState("auto", 1341) ? buyBuyable("res", 41) : false),
+            (getClickableState("auto", 1342) ? buyBuyable("res", 42) : false)
+        }
     },
     update(diff) {
 
@@ -561,6 +584,8 @@ addLayer("res", {
     doReset(resettingLayer) {
         let keep=[];
         if (layers[resettingLayer].row > this.row) {layerDataReset("res", keep);
+        if (hasUpgrade("fd",13)) player[this.layer].upgrades = player[this.layer].upgrades.concat([11,12,13,14,15]);
+        if (hasUpgrade("fd",13)) player[this.layer].upgrades = player[this.layer].upgrades.concat([21,22,23,24,25]);
         if (hasAchievement("A", 31)) player[this.layer].upgrades = player[this.layer].upgrades.concat([15]);
         }
     },

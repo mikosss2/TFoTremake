@@ -7,6 +7,7 @@ let modInfo = {
 		"layers/01_ghostlayers.js",
 		"layers/02_ach.js",
 		"layers/03_functions.js",
+		"layers/04_auto.js",
 		"layers/11_foft.js",
 		"layers/12_upg.js",
 		"layers/13_res.js",
@@ -14,6 +15,8 @@ let modInfo = {
 		"layers/20_pres.js",
 		"layers/21_goft.js",
 		"layers/22_pupg.js",
+		"layers/23_inf.js",
+		"layers/24_4d.js",
 		"tree.js"
 	],
 
@@ -25,11 +28,25 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.1.49",
-	name: "Another Upgrade Update",
+	num: "1.3.17",
+	name: "4th Dimension Update",
 }
 
 let changelog = `<h1>Changelog:</h1><br><br>
+<h3 style="background-image: linear-gradient(60deg, #FF7F7F, #797EF6);-webkit-background-clip: text;color: transparent;">v1.3.17</h3><br>
+	- Endgame is currently infinite time<br>
+	- Completed 8 achievements<br>
+	- Added 4 upgrades<br>
+	- Added 4 buyables<br><br>
+<h3 style="background-image: linear-gradient(60deg, #FF7F7F, #797EF6);-webkit-background-clip: text;color: transparent;">v1.3.0</h3><br>
+	- Added 4th Dimension<br><br>
+<h2 style="background-image: linear-gradient(60deg, #FF7F7F, #797EF6);-webkit-background-clip: text;color: transparent;">4th Dimension Update</h2><br><br>
+<h3 style="color: #FFFFFF">v1.2.29</h3><br>
+	- Added 8 Automation and Break-infinity Challenges<br>
+	- Added 21 Automation options<br><br>
+<h3 style="color: #FFFFFF">v1.2.0</h3><br>
+	- Added Infinity<br><br>
+<h2 style="color: #FFFFFF">Automation Update</h2><br><br>
 <h3 style="color: #970439">v1.1.49</h3><br>
 	- Fixed interface<br><br>
 <h3 style="color: #970439">v1.1.48</h3><br>
@@ -105,6 +122,7 @@ function getPointGen() {
 
 	let gain = new Decimal(1)
 	gain = gain.add(buyableEffect("tm",12))
+	if (gain.gte(new Decimal(2).pow(1024))) gain = new Decimal(2).pow(1024)
 	return gain
 }
 
@@ -118,7 +136,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player["f"].points.gte(new Decimal(2).pow(1024))
+	return player.points.gte(new Decimal(2).pow(1024))
 }
 
 

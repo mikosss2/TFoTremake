@@ -6,7 +6,11 @@ addLayer("g", {
                 ["display-text", function() { return "You Are Gaining <h2><b style='color:#BF40BF;'>" + format(getResetGain("g")) + "</b></h2> g(t) Per Second" },],
                 "blank",
                 ["display-text", function() {
-                    if (tmp["tm"].layerShown && tmp["pu"].layerShown && hasUpgrade("p",11) && hasUpgrade("p",12)) return "g(time+TimeSpeed) = g(time) + wxyz⋅pU⋅(TimeSpeed)"
+                    if (tmp["tm"].layerShown && tmp["pu"].layerShown && hasUpgrade("p",11) && hasUpgrade("p",12) && inChallenge("fd",11)) return "g(time+TimeSpeed) = g(time) + [wxyz⋅pU⋅(TimeSpeed)]^0.25"
+                    else if (tmp["tm"].layerShown && tmp["pu"].layerShown && hasUpgrade("p",12) && inChallenge("fd",11)) return "g(time+TimeSpeed) = g(time) + [wxyz⋅pU⋅(TimeSpeed)⋅0.01]^0.25"
+                    else if (tmp["tm"].layerShown && tmp["pu"].layerShown && hasUpgrade("p",11) && inChallenge("fd",11)) return "g(time+TimeSpeed) = g(time) + [wxyz⋅pU⋅(TimeSpeed^0.75)]^0.25"
+                    else if (tmp["pu"].layerShown && hasUpgrade("p",11) && inChallenge("fd",11)) return "g(time+1) = g(time) + [wxyz⋅pU]^0.25"
+                    else if (tmp["tm"].layerShown && tmp["pu"].layerShown && hasUpgrade("p",11) && hasUpgrade("p",12)) return "g(time+TimeSpeed) = g(time) + wxyz⋅pU⋅(TimeSpeed)"
                     else if (tmp["tm"].layerShown && tmp["pu"].layerShown && hasUpgrade("p",12)) return "g(time+TimeSpeed) = g(time) + wxyz⋅pU⋅(TimeSpeed)⋅0.01"
                     else if (tmp["tm"].layerShown && tmp["pu"].layerShown && hasUpgrade("p",11)) return "g(time+TimeSpeed) = g(time) + wxyz⋅pU⋅(TimeSpeed^0.75)"
                     else if (tmp["pu"].layerShown && hasUpgrade("p",11)) return "g(time+1) = g(time) + wxyz⋅pU"
@@ -33,6 +37,8 @@ addLayer("g", {
     symbol: "g",
     color: "#BF40BF", 
     nodeStyle() {
+        if (inChallenge("fd",11)) return {"background": "radial-gradient(#BF40BF, #797EF6)", "background-origin": "border-box"}
+        else return {"background": "#BF40BF", "background-origin": "border-box"}
     },
     resource: "g(t)",
     baseResource: "PP",
@@ -55,7 +61,8 @@ addLayer("g", {
                 buyMaxBuyable("g", 11) & buyMaxBuyable("g", 21) & buyMaxBuyable("g", 31) & buyMaxBuyable("g", 41)
             },
             style() {
-                return {"border-radius": "15px 15px 0px 0px", "width": "280px", "min-height": "40px", "margin-right": "200px"}
+                if (tmp["g"].clickables[12].unlocked) return {"border-radius": "15px 0px 0px 0px", "width": "280px", "min-height": "40px"}
+                else return {"border-radius": "15px 15px 0px 0px", "width": "280px", "min-height": "40px", "margin-right": "200px"}
             },
             unlocked() {return hasAchievement("A", 55)}
         },
@@ -69,9 +76,10 @@ addLayer("g", {
                 buyMaxBuyable("g", 12) & buyMaxBuyable("g", 22) & buyMaxBuyable("g", 32) & buyMaxBuyable("g", 42)
             },
             style() {
-                return {"border-radius": "15px 0px 0px 0px", "width": "200px", "min-height": "40px"}
+                if (tmp["g"].clickables[11].unlocked) return {"border-radius": "0px 15px 0px 0px", "width": "200px", "min-height": "40px"}
+                else return {"border-radius": "15px 15px 0px 0px", "width": "200px", "min-height": "40px", "margin-left": "280px"}
             },
-            unlocked() {return false}
+            unlocked() {return hasUpgrade("fd",13)}
         },
     },
     buyables: {
@@ -107,19 +115,33 @@ addLayer("g", {
         12: {
             title() {return "Boost 'w' Variable"},
             cost(x) { return new Decimal(1).mul(new Decimal(10).pow(x))},
-            display() { return "<b>x2</b> 'w' variable value <br> Currently:<b> x" + format(tmp.g.buyables[12].effect) + " </b> <br> (bought:" + format(getBuyableAmount("g", 12)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("g", 12))) + " PP"},
+            display() { 
+                if (getBuyableAmount("g",12).gte(308)) return "<b>x2</b> 'w' variable value<b style='color:red;'> Softcapped </b> <br> Currently:<b> x" + format(tmp.g.buyables[12].effect) + " </b> <br> (bought:" + format(getBuyableAmount("g", 12)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("g", 12))) + " PP"
+                else return "<b>x2</b> 'w' variable value <br> Currently:<b> x" + format(tmp.g.buyables[12].effect) + " </b> <br> (bought:" + format(getBuyableAmount("g", 12)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("g", 12))) + " PP"
+            },
             canAfford() { return player["p"].points.gte(this.cost()) },
             buy() {
                 player["p"].points = player["p"].points.sub(this.cost())
                 setBuyableAmount("g", 12, getBuyableAmount("g", 12).add(1))
             },
+            buyMax() {
+                getMax(player["p"].points.abs(), this.cost(), 10)
+                subCost(10, getBuyableAmount("g", 12), 1)
+                player["p"].points = player["p"].points.sub(new Decimal(sub))
+                setBuyableAmount("g", 12, getBuyableAmount("g", 12).add(new Decimal(max)))
+            },
             effect() { 
                 eff = new Decimal(2)
                 eff = eff.pow(getBuyableAmount("g", 12))
+                if (getBuyableAmount("g",12).gte(308)) {
+                    eff = new Decimal(2).pow(308)
+                    eff = eff.mul(new Decimal(2).pow(getBuyableAmount("g",12).sub(308).pow(0.85)))
+                }
                 return eff
             },
             style(){ 
-                return {"border-radius": "0px 15px 0px 0px", "width": "200px", "height": "100px"}
+                if (tmp["g"].clickables[12].unlocked) return {"border-radius": "0px 0px 0px 0px", "width": "200px", "height": "100px"}
+                else return {"border-radius": "0px 15px 0px 0px", "width": "200px", "height": "100px"}
             },
             unlocked() {
                 return true
@@ -156,15 +178,28 @@ addLayer("g", {
         22: {
             title() {return "Boost 'x' Variable"},
             cost(x) { return new Decimal(1000000).mul(new Decimal(100).pow(x))},
-            display() { return "<b>x2</b> 'x' variable value <br> Currently:<b> x" + format(tmp.g.buyables[22].effect) + " </b> <br> (bought:" + format(getBuyableAmount("g", 22)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("g", 22))) + " PP"},
+            display() { 
+                if (getBuyableAmount("g",22).gte(308)) return "<b>x2</b> 'x' variable value<b style='color:red;'> Softcapped </b> <br> Currently:<b> x" + format(tmp.g.buyables[22].effect) + " </b> <br> (bought:" + format(getBuyableAmount("g", 22)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("g", 22))) + " PP"
+                else return "<b>x2</b> 'x' variable value <br> Currently:<b> x" + format(tmp.g.buyables[22].effect) + " </b> <br> (bought:" + format(getBuyableAmount("g", 22)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("g", 22))) + " PP"
+            },
             canAfford() { return player["p"].points.gte(this.cost()) },
             buy() {
                 player["p"].points = player["p"].points.sub(this.cost())
                 setBuyableAmount("g", 22, getBuyableAmount("g", 22).add(1))
             },
+            buyMax() {
+                getMax(player["p"].points.abs(), this.cost(), 100)
+                subCost(100, getBuyableAmount("g", 22), 1000000)
+                player["p"].points = player["p"].points.sub(new Decimal(sub))
+                setBuyableAmount("g", 22, getBuyableAmount("g", 22).add(new Decimal(max)))
+            },
             effect() { 
                 eff = new Decimal(2)
                 eff = eff.pow(getBuyableAmount("g", 22))
+                if (getBuyableAmount("g",22).gte(308)) {
+                    eff = new Decimal(2).pow(308)
+                    eff = eff.mul(new Decimal(2).pow(getBuyableAmount("g",22).sub(308).pow(0.5)))
+                }
                 return eff
             },
             style(){ 
@@ -205,15 +240,28 @@ addLayer("g", {
         32: {
             title() {return "Boost 'y' Variable"},
             cost(x) { return new Decimal(1e18).mul(new Decimal(1000).pow(x))},
-            display() { return "<b>x2</b> 'y' variable value <br> Currently:<b> x" + format(tmp.g.buyables[32].effect) + " </b> <br> (bought:" + format(getBuyableAmount("g", 32)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("g", 32))) + " PP"},
+            display() { 
+                if (getBuyableAmount("g",32).gte(308)) return "<b>x2</b> 'y' variable value<b style='color:red;'> Softcapped </b> <br> Currently:<b> x" + format(tmp.g.buyables[32].effect) + " </b> <br> (bought:" + format(getBuyableAmount("g", 32)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("g", 32))) + " PP"
+                else return "<b>x2</b> 'y' variable value <br> Currently:<b> x" + format(tmp.g.buyables[32].effect) + " </b> <br> (bought:" + format(getBuyableAmount("g", 32)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("g", 32))) + " PP"
+            },
             canAfford() { return player["p"].points.gte(this.cost()) },
             buy() {
                 player["p"].points = player["p"].points.sub(this.cost())
                 setBuyableAmount("g", 32, getBuyableAmount("g", 32).add(1))
             },
+            buyMax() {
+                getMax(player["p"].points.abs(), this.cost(), 1000)
+                subCost(1000, getBuyableAmount("g", 32), 1e18)
+                player["p"].points = player["p"].points.sub(new Decimal(sub))
+                setBuyableAmount("g", 32, getBuyableAmount("g", 32).add(new Decimal(max)))
+            },
             effect() { 
                 eff = new Decimal(2)
                 eff = eff.pow(getBuyableAmount("g", 32))
+                if (getBuyableAmount("g",32).gte(308)) {
+                    eff = new Decimal(2).pow(308)
+                    eff = eff.mul(new Decimal(2).pow(getBuyableAmount("g",32).sub(308).pow(0.5)))
+                }
                 return eff
             },
             style(){ 
@@ -254,15 +302,28 @@ addLayer("g", {
         42: {
             title() {return "Boost 'z' Variable"},
             cost(x) { return new Decimal(1e54).mul(new Decimal(10000).pow(x))},
-            display() { return "<b>x2</b> 'z' variable value <br> Currently:<b> x" + format(tmp.g.buyables[42].effect) + " </b> <br> (bought:" + format(getBuyableAmount("g", 42)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("g", 42))) + " PP"},
+            display() { 
+                if (getBuyableAmount("g",42).gte(308)) return "<b>x2</b> 'z' variable value<b style='color:red;'> Softcapped </b> <br> Currently:<b> x" + format(tmp.g.buyables[42].effect) + " </b> <br> (bought:" + format(getBuyableAmount("g", 42)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("g", 42))) + " PP"
+                else return "<b>x2</b> 'z' variable value <br> Currently:<b> x" + format(tmp.g.buyables[42].effect) + " </b> <br> (bought:" + format(getBuyableAmount("g", 42)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("g", 42))) + " PP"
+            },
             canAfford() { return player["p"].points.gte(this.cost()) },
             buy() {
                 player["p"].points = player["p"].points.sub(this.cost())
                 setBuyableAmount("g", 42, getBuyableAmount("g", 42).add(1))
             },
+            buyMax() {
+                getMax(player["p"].points.abs(), this.cost(), 10000)
+                subCost(10000, getBuyableAmount("g", 42), 1e54)
+                player["p"].points = player["p"].points.sub(new Decimal(sub))
+                setBuyableAmount("g", 42, getBuyableAmount("g", 42).add(new Decimal(max)))
+            },
             effect() { 
                 eff = new Decimal(2)
                 eff = eff.pow(getBuyableAmount("g", 42))
+                if (getBuyableAmount("g",42).gte(308)) {
+                    eff = new Decimal(2).pow(308)
+                    eff = eff.mul(new Decimal(2).pow(getBuyableAmount("g",42).sub(308).pow(0.5)))
+                }
                 return eff
             },
             style(){ 
@@ -277,6 +338,7 @@ addLayer("g", {
 
     },
     update(diff) {
+        if (player["g"].points.gte(new Decimal(2).pow(1024)) && !hasChallenge("inf",32))  player["g"].points = new Decimal(2).pow(1024)
 
     },
     getResetGain() {
@@ -284,6 +346,7 @@ addLayer("g", {
         gain = gain.add(buyableEffect("g",11).mul(buyableEffect("g",21)).mul(buyableEffect("g",31)).mul(buyableEffect("g",41)))
         gain = gain.mul(tmp.g.gainMult)
         gain = gain.pow(tmp.g.gainExp)
+        if (player.points.gte(new Decimal(2).pow(1024))) gain = new Decimal(0)
         return gain
     },
     gainMult() { // Calculate the multiplier for main currency from bonuses
@@ -296,6 +359,7 @@ addLayer("g", {
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
         exp = new Decimal(1)
+        if (inChallenge("fd",11)) exp = exp.mul(0.25)
         return exp
     },
     exponent: 1, 

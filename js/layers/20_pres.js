@@ -158,7 +158,7 @@ addLayer("p", {
         },
         21: {
             title: "Pres-Upgrade 2.1",
-            description: "<b>Reduce</b> Time Warp's cost mult (x2 -> x1.85)",
+            description: "<b>Reduce</b> Time Warp's cost increase (x2 -> x1.85)",
             cost: new Decimal(1e100),
             currencyDisplayName: "PP",
             currencyInternalName: "points",
@@ -182,8 +182,8 @@ addLayer("p", {
         },
         23: {
             title: "Pres-Upgrade 2.3",
-            description: "<b>---</b>",
-            cost: new Decimal(1e200),
+            description: "<b>Unlock</b> Buy Max button for Heavy Machines in Time Machine",
+            cost: new Decimal(1e250),
             currencyDisplayName: "PP",
             currencyInternalName: "points",
             currencyLayer: "p",
@@ -194,8 +194,8 @@ addLayer("p", {
         },
         24: {
             title: "Pres-Upgrade 2.4",
-            description: "<b>---</b>",
-            cost: new Decimal(1e250),
+            description: "<b>Reduce</b> T.F.G.E. and Warp Warp Time's cost increase (+5 -> +4.33)",
+            cost: new Decimal(10).pow(400),
             currencyDisplayName: "PP",
             currencyInternalName: "points",
             currencyLayer: "p",
@@ -206,8 +206,8 @@ addLayer("p", {
         },
         25: {
             title: "Pres-Upgrade 2.5",
-            description: "<b>---</b>",
-            cost: new Decimal(1e300),
+            description: "<b>Enhance</b> - Distortion affects Time Fragments production",
+            cost: new Decimal(10).pow(600),
             currencyDisplayName: "PP",
             currencyInternalName: "points",
             currencyLayer: "p",

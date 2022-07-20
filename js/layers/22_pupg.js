@@ -75,7 +75,8 @@ addLayer("pu", {
         13: {
             title: "'pU' Upgrade 1.3",
             description() {
-                if (hasUpgrade("pu",25)) return "<b>x1.01</b> 'pU' value every 'w' Variable bought <br> Cap = x32"
+                if (hasUpgrade("pu",25) && upgradeEffect("pu", 13).gte(1048576)) return "<b>x1.01</b> 'pU' value every 'w' Variable bought <br> Max = x1,048,576"
+                else if (hasUpgrade("pu",25)) return "<b>x1.01</b> 'pU' value every 'w' Variable bought <br> Cap = x32"
                 else return "<b>x1.01</b> 'pU' value every 'w' Variable bought <br> Max = x32"
             },
             cost: new Decimal(1e30),
@@ -88,6 +89,7 @@ addLayer("pu", {
                 if (eff.gte(32)) {
                     eff = new Decimal(32)
                     if (hasUpgrade("pu",25)) eff = eff.mul(new Decimal(1.01).pow(getBuyableAmount("g",11)).div(32).pow(0.75))
+                    if (eff.gte(1048576)) eff = new Decimal(1048576)
                 }
                 return eff
             },
@@ -112,7 +114,8 @@ addLayer("pu", {
         15: {
             title: "'pU' Upgrade 1.5",
             description() {
-                if (hasUpgrade("pu",25)) return "<b>x1.01</b> 'pU' value every 'x' Variable bought <br> Cap = x32"
+                if (hasUpgrade("pu",25) && upgradeEffect("pu", 15).gte(1048576)) return "<b>x1.01</b> 'pU' value every 'x' Variable bought <br> Max = x1,048,576"
+                else if (hasUpgrade("pu",25)) return "<b>x1.01</b> 'pU' value every 'x' Variable bought <br> Cap = x32"
                 else return "<b>x1.01</b> 'pU' value every 'x' Variable bought <br> Max = x32"
             },
             cost: new Decimal(1e36),
@@ -125,6 +128,7 @@ addLayer("pu", {
                 if (eff.gte(32)) {
                     eff = new Decimal(32)
                     if (hasUpgrade("pu",25)) eff = eff.mul(new Decimal(1.01).pow(getBuyableAmount("g",21)).div(32).pow(0.75))
+                    if (eff.gte(1048576)) eff = new Decimal(1048576)
                 }
                 return eff
             },
@@ -137,7 +141,7 @@ addLayer("pu", {
         },
         21: {
             title: "'pU' Upgrade 2.1",
-            description: "<b>Reduce</b> Time Fragment Generator's cost mult (x2 -> x1.85)",
+            description: "<b>Reduce</b> Time Fragment Generator's cost increase (x2 -> x1.85)",
             cost: new Decimal(1e39),
             currencyDisplayName: "g(t)",
             currencyInternalName: "points",
@@ -149,7 +153,8 @@ addLayer("pu", {
         22: {
             title: "'pU' Upgrade 2.2",
             description() {
-                if (hasUpgrade("pu",25)) return "<b>x1.01</b> 'pU' value every 'y' Variable bought <br> Cap = x32"
+                if (hasUpgrade("pu",25) && upgradeEffect("pu", 22).gte(1048576)) return "<b>x1.01</b> 'pU' value every 'y' Variable bought <br> Max = x1,048,576"
+                else if (hasUpgrade("pu",25)) return "<b>x1.01</b> 'pU' value every 'y' Variable bought <br> Cap = x32"
                 else return "<b>x1.01</b> 'pU' value every 'y' Variable bought <br> Max = x32"
             },
             cost: new Decimal(1e45),
@@ -162,6 +167,7 @@ addLayer("pu", {
                 if (eff.gte(32)) {
                     eff = new Decimal(32)
                     if (hasUpgrade("pu",25)) eff = eff.mul(new Decimal(1.01).pow(getBuyableAmount("g",31)).div(32).pow(0.75))
+                    if (eff.gte(1048576)) eff = new Decimal(1048576)
                 }
                 return eff
             },
@@ -186,7 +192,8 @@ addLayer("pu", {
         24: {
             title: "'pU' Upgrade 2.4",
             description() {
-                if (hasUpgrade("pu",25)) return "<b>x1.01</b> 'pU' value every 'z' Variable bought <br> Cap = x32"
+                if (hasUpgrade("pu",25) && upgradeEffect("pu", 24).gte(1048576)) return "<b>x1.01</b> 'pU' value every 'z' Variable bought <br> Max = x1,048,576"
+                else if (hasUpgrade("pu",25)) return "<b>x1.01</b> 'pU' value every 'z' Variable bought <br> Cap = x32"
                 else return "<b>x1.01</b> 'pU' value every 'z' Variable bought <br> Max = x32"
             },
             cost: new Decimal(1e66),
@@ -199,6 +206,7 @@ addLayer("pu", {
                 if (eff.gte(32)) {
                     eff = new Decimal(32)
                     if (hasUpgrade("pu",25)) eff = eff.mul(new Decimal(1.01).pow(getBuyableAmount("g",41)).div(32).pow(0.75))
+                    if (eff.gte(1048576)) eff = new Decimal(1048576)
                 }
                 return eff
             },

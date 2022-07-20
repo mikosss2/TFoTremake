@@ -65,11 +65,11 @@ addLayer("A", {
             },
         },
         17: {
-            name: "---",
-            done() { return false },
-            tooltip: "<b>---</b><br><br> ---",
+            name: "777.777e777",
+            done() { return player["f"].points.gte(new Decimal(777.777).mul(new Decimal(10).pow(777))) },
+            tooltip: "<b>seven hundred seventy seven point seven hundred seventy seven letter 'e' seven hundred seventy seven</b><br><br> Reach f(t)=777.777e777",
             style(){ 
-                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+                return {"font-size": "7px", "border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
             },
         },
         18: {
@@ -267,9 +267,9 @@ addLayer("A", {
             unlocked() {return hasUpgrade("res",15) || hasAchievement("A",41)},
         },
         45: {
-            name: "---",
-            done() { return false },
-            tooltip: "<b>---</b><br><br> ---",
+            name: "Free Senior",
+            done() { return buyableEffect("fd", 11).add(buyableEffect("fd", 12)).gte(60) },
+            tooltip: "<b>Oh God that sounds weird</b><br><br> Have atleast 60 free levels of T.F.G.E. and Warp Warp Time",
             style(){ 
                 return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
             },
@@ -382,7 +382,8 @@ addLayer("A", {
             done() { return hasUpgrade("p",13) },
             tooltip: "<b>This already happened</b><br><br> Unlock 'pU' Upgrades",
             style(){ 
-                return {"border-radius": "0px 0px 0px 15px",'height': '64px', 'width': '64px'}
+                if (tmp["A"].achievements[71].unlocked) return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+                else return {"border-radius": "0px 0px 0px 15px",'height': '64px', 'width': '64px'}
             },
             unlocked() {return hasUpgrade("p",13) || hasAchievement("A",61)},
         },
@@ -445,9 +446,156 @@ addLayer("A", {
             done() { return false },
             tooltip: "<b>---</b><br><br> ---",
             style(){ 
-                return {"border-radius": "0px 0px 15px 0px",'height': '64px', 'width': '64px'}
+                if (tmp["A"].achievements[78].unlocked) return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+                else return {"border-radius": "0px 0px 15px 0px",'height': '64px', 'width': '64px'}
             },
             unlocked() {return hasUpgrade("p",13) || hasAchievement("A",61)},
+        },
+        71: {
+            name: "∞",
+            done() { return player["f"].points.gte(new Decimal(2).pow(1024)) },
+            tooltip: "<b>The infinity</b><br><br> Unlock the Infinity",
+            style(){ 
+                if (tmp["A"].achievements[81].unlocked) return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+                else return {"border-radius": "0px 0px 0px 15px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return player["f"].points.gte(new Decimal(2).pow(1024)) || hasAchievement("A",71)},
+        },
+        72: {
+            name: "BROKEN",
+            done() { return hasChallenge("inf",11) },
+            tooltip: "<b>no longer infinity</b><br><br> Break the infinity",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return player["f"].points.gte(new Decimal(2).pow(1024)) || hasAchievement("A",71)},
+        },
+        73: {
+            name: "anti-∞",
+            done() { return hasChallenge("inf",32) },
+            tooltip: "<b>no longer infinity again</b><br><br> Break the infinity again",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return player["f"].points.gte(new Decimal(2).pow(1024)) || hasAchievement("A",71)},
+        },
+        74: {
+            name: "Bruh ∞ again",
+            done() { return player.points.gte(new Decimal(2).pow(1024)) },
+            tooltip: "<b>Probably the real infinity</b><br><br> Reach the real 'Infinity'",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return player["f"].points.gte(new Decimal(2).pow(1024)) || hasAchievement("A",71)},
+        },
+        75: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return player["f"].points.gte(new Decimal(2).pow(1024)) || hasAchievement("A",71)},
+        },
+        76: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return player["f"].points.gte(new Decimal(2).pow(1024)) || hasAchievement("A",71)},
+        },
+        77: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return player["f"].points.gte(new Decimal(2).pow(1024)) || hasAchievement("A",71)},
+        },
+        78: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                if (tmp["A"].achievements[88].unlocked) return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+                else return {"border-radius": "0px 0px 15px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return player["f"].points.gte(new Decimal(2).pow(1024)) || hasAchievement("A",71)},
+        },
+        81: {
+            name: "4th Dimension",
+            done() { return player["fd"].unlocked },
+            tooltip: "<b>The next to 3rd Dimension</b><br><br> Unlock the 4th Dimension",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 15px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return player["fd"].unlocked || hasAchievement("A",81)},
+        },
+        82: {
+            name: "Such a weak machine",
+            done() { return getResetGain("fd").gte(new Decimal(2).pow(32)) },
+            tooltip: "<b>Greatly reduced</b><br><br> Reach certain amout of production of Distortion where it cannot be handled by the machine, as easy as that...",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return player["fd"].unlocked || hasAchievement("A",81)},
+        },
+        83: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return player["fd"].unlocked || hasAchievement("A",81)},
+        },
+        84: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return player["fd"].unlocked || hasAchievement("A",81)},
+        },
+        85: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return player["fd"].unlocked || hasAchievement("A",81)},
+        },
+        86: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return player["fd"].unlocked || hasAchievement("A",81)},
+        },
+        87: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return player["fd"].unlocked || hasAchievement("A",81)},
+        },
+        88: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                return {"border-radius": "0px 0px 15px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return player["fd"].unlocked || hasAchievement("A",81)},
         },
     }
 })

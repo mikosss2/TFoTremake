@@ -336,7 +336,7 @@ addLayer("u", {
         },
         33: {
             title: "'U' Upgrade 3.3",
-            description: "<b>Reduce</b> 'a, b, c, & d' Variable cost mult (x1.5 -> x1.425)",
+            description: "<b>Reduce</b> 'a, b, c, & d' Variable cost increase (x1.5 -> x1.425)",
             cost: new Decimal(1e111),
             currencyDisplayName: "f(t)",
             currencyInternalName: "points",
@@ -376,11 +376,11 @@ addLayer("u", {
     },
     update(diff) {
         pow = new Decimal(1)
+        if (inChallenge("inf",12) || inChallenge("inf",32)) pow = new Decimal(0.5)
         if (hasUpgrade("u",25)) pow = pow.add(tmp.u.upgrades[25].effect)
         if (hasUpgrade("u",32)) pow = pow.add(tmp.u.upgrades[32].effect)
 
         player["u"].points = new Decimal(1)
-        player["u"].points = player["u"].points.mul(buyableEffect("res", 21))
         if (hasUpgrade("u", 11)) player["u"].points = player["u"].points.mul(tmp.u.upgrades[11].effect)
         if (hasUpgrade("u", 12)) player["u"].points = player["u"].points.mul(tmp.u.upgrades[12].effect)
         if (hasUpgrade("u", 13)) player["u"].points = player["u"].points.mul(tmp.u.upgrades[13].effect)
@@ -388,6 +388,7 @@ addLayer("u", {
         if (hasUpgrade("u", 22)) player["u"].points = player["u"].points.mul(tmp.u.upgrades[22].effect)
         if (hasUpgrade("u", 23)) player["u"].points = player["u"].points.mul(tmp.u.upgrades[23].effect)
         if (hasUpgrade("u", 24)) player["u"].points = player["u"].points.mul(tmp.u.upgrades[24].effect)
+        player["u"].points = player["u"].points.mul(buyableEffect("res", 21))
         player["u"].points = player["u"].points.pow(pow)
 
     },
@@ -412,6 +413,9 @@ addLayer("u", {
     doReset(resettingLayer) {
         let keep=[];
         if (layers[resettingLayer].row > this.row) {layerDataReset("u", keep);
+        if (hasUpgrade("fd",13)) player[this.layer].upgrades = player[this.layer].upgrades.concat([11,12,13,14,15]);
+        if (hasUpgrade("fd",13)) player[this.layer].upgrades = player[this.layer].upgrades.concat([21,22,23,24,25]);
+        if (hasUpgrade("fd",13)) player[this.layer].upgrades = player[this.layer].upgrades.concat([31,32,33,34,35]);
         if (hasAchievement("A", 26)) player[this.layer].upgrades = player[this.layer].upgrades.concat([35]);
         if (hasAchievement("A", 21)) player[this.layer].upgrades = player[this.layer].upgrades.concat([21]);
         if (hasAchievement("A", 21)) player[this.layer].upgrades = player[this.layer].upgrades.concat([14]);
