@@ -28,11 +28,13 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.3.17",
+	num: "1.3.19",
 	name: "4th Dimension Update",
 }
 
 let changelog = `<h1>Changelog:</h1><br><br>
+<h3 style="background-image: linear-gradient(60deg, #FF7F7F, #797EF6);-webkit-background-clip: text;color: transparent;">v1.3.19</h3><br>
+	- Increase time requirement for Challenge 'Break Infinity I' <br> and 'Heavy Machines & Break Infinity II'<br><br>
 <h3 style="background-image: linear-gradient(60deg, #FF7F7F, #797EF6);-webkit-background-clip: text;color: transparent;">v1.3.17</h3><br>
 	- Endgame is currently infinite time<br>
 	- Completed 8 achievements<br>

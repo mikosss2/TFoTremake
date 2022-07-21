@@ -27,9 +27,9 @@ addLayer("inf", {
     challenges: {
         11: {
             name: "Break Infinity I",
-            challengeDescription() {return "Just reach infinity, in 16 seconds <br> Time: " + formatTime(player["f"].realtime)},
+            challengeDescription() {return "Just reach infinity, in 32 seconds <br> <span style='color: red;'> Must have all of the other challenges except for 'Heavy Machines & Break Infinity II' </span> <br> Time: " + formatTime(player["f"].realtime)},
             goalDescription: "Reach f(t) = 1.79e308",
-            canComplete: function() {return player["f"].points.gte(new Decimal(2).pow(1024)) && player["f"].realtime.lte(16)},
+            canComplete: function() {return player["f"].points.gte(new Decimal(2).pow(1024)) && player["f"].realtime.lte(32) && hasChallenge("inf",12) && hasChallenge("inf",21) && hasChallenge("inf",22) && hasChallenge("inf",31) },
             rewardDescription: "Your f(t) value will go past f(t) = 1.79e308",
             completionLimit: 1,
             onEnter() { layer1reset() },
@@ -77,9 +77,9 @@ addLayer("inf", {
         },
         32: {
             name: "Heavy Machines & Break Infinity II",
-            challengeDescription() {return "Combination of all of the challenges in this tab <br> Time: " + formatTime(player["f"].realtime)},
+            challengeDescription() {return "Combination of all of the challenges in this tab <br>  Time: " + formatTime(player["f"].realtime)},
             goalDescription: "Reach f(t) = 1.79e308",
-            canComplete: function() {return player["f"].points.gte(new Decimal(2).pow(1024)) && player["f"].realtime.lte(16)},
+            canComplete: function() {return player["f"].points.gte(new Decimal(2).pow(1024)) && player["f"].realtime.lte(32)},
             rewardDescription: "Unlock T.M.G.E. and Warp Warp Time autobuyer & your g(t) value will go past g(t) = 1.79e308.",
             completionLimit: 1,
             onEnter() { layer1reset() },
