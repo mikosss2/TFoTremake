@@ -197,16 +197,16 @@ addLayer("f", {
     },
     automate() {
         if (getClickableState("auto", 1101) == true) {
-            (getClickableState("auto", 1111) ? buyMaxBuyable("f", 11) : false),
-            (getClickableState("auto", 1121) ? buyMaxBuyable("f", 21) : false),
-            (getClickableState("auto", 1131) ? buyMaxBuyable("f", 31) : false),
-            (getClickableState("auto", 1141) ? buyMaxBuyable("f", 41) : false)
+            (auto1() && getClickableState("auto", 1111) ? buyMaxBuyable("f", 11) : false),
+            (auto1() && getClickableState("auto", 1121) ? buyMaxBuyable("f", 21) : false),
+            (auto1() && getClickableState("auto", 1131) ? buyMaxBuyable("f", 31) : false),
+            (auto1() && getClickableState("auto", 1141) ? buyMaxBuyable("f", 41) : false)
         }
         else if (getClickableState("auto", 1101) == false) {
-            (getClickableState("auto", 1111) ? buyBuyable("f", 11) : false),
-            (getClickableState("auto", 1121) ? buyBuyable("f", 21) : false),
-            (getClickableState("auto", 1131) ? buyBuyable("f", 31) : false),
-            (getClickableState("auto", 1141) ? buyBuyable("f", 41) : false)
+            (auto1() && getClickableState("auto", 1111) ? buyBuyable("f", 11) : false),
+            (auto1() && getClickableState("auto", 1121) ? buyBuyable("f", 21) : false),
+            (auto1() && getClickableState("auto", 1131) ? buyBuyable("f", 31) : false),
+            (auto1() && getClickableState("auto", 1141) ? buyBuyable("f", 41) : false)
         }
     },
     update(diff) {

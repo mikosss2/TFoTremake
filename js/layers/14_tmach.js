@@ -98,7 +98,7 @@ addLayer("tm", {
         12: {
             title() {return "Warp Time"},
             cost(x) { return new Decimal(1).mul(new Decimal(tmbuy12cm()).pow(x))},
-            display() { return "Speed up time <br> Currrently: <b>+" + format(tmp.tm.buyables[12].effect) + " </b> <br> (bought:" + format(getBuyableAmount("tm", 12)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("tm", 12))) + " Time Fragments"},
+            display() { return "Speed up time <br> Currently: <b>+" + format(tmp.tm.buyables[12].effect) + " </b> <br> (bought:" + format(getBuyableAmount("tm", 12)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("tm", 12))) + " Time Fragments"},
             canAfford() { return player["tm"].points.gte(this.cost()) },
             buy() {
                 if (!hasChallenge("inf",31)) player["tm"].points = player["tm"].points.sub(this.cost())
@@ -241,20 +241,20 @@ addLayer("tm", {
     },
     automate() {
         if (getClickableState("auto", 1401) == true) {
-            (getClickableState("auto", 1411) ? buyMaxBuyable("tm", 11) : false),
-            (getClickableState("auto", 1412) ? buyMaxBuyable("tm", 12) : false)
+            (auto4() && getClickableState("auto", 1411) ? buyMaxBuyable("tm", 11) : false),
+            (auto4() && getClickableState("auto", 1412) ? buyMaxBuyable("tm", 12) : false)
         }
         else if (getClickableState("auto", 1401) == false) {
-            (getClickableState("auto", 1411) ? buyBuyable("tm", 11) : false),
-            (getClickableState("auto", 1412) ? buyBuyable("tm", 12) : false)
+            (auto4() && getClickableState("auto", 1411) ? buyBuyable("tm", 11) : false),
+            (auto4() && getClickableState("auto", 1412) ? buyBuyable("tm", 12) : false)
         }
         if (getClickableState("auto", 1402) == true) {
-            (getClickableState("auto", 1421) ? buyMaxBuyable("tm", 21) : false),
-            (getClickableState("auto", 1422) ? buyMaxBuyable("tm", 22) : false)
+            (auto5() && getClickableState("auto", 1421) ? buyMaxBuyable("tm", 21) : false),
+            (auto5() && getClickableState("auto", 1422) ? buyMaxBuyable("tm", 22) : false)
         }
         else if (getClickableState("auto", 1402) == false) {
-            (getClickableState("auto", 1421) ? buyBuyable("tm", 21) : false),
-            (getClickableState("auto", 1422) ? buyBuyable("tm", 22) : false)
+            (auto5() && getClickableState("auto", 1421) ? buyBuyable("tm", 21) : false),
+            (auto5() && getClickableState("auto", 1422) ? buyBuyable("tm", 22) : false)
         }
     },
     update(diff) {

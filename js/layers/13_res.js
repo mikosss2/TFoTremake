@@ -528,28 +528,28 @@ addLayer("res", {
     },
     automate() {
         if (getClickableState("auto", 1301) == true) {
-            (getClickableState("auto", 1311) ? buyMaxBuyable("res", 11) : false),
-            (getClickableState("auto", 1312) ? buyMaxBuyable("res", 12) : false)
+            (auto2() && getClickableState("auto", 1311) ? buyMaxBuyable("res", 11) : false),
+            (auto2() && getClickableState("auto", 1312) ? buyMaxBuyable("res", 12) : false)
         }
         else if (getClickableState("auto", 1301) == false) {
-            (getClickableState("auto", 1311) ? buyBuyable("res", 11) : false),
-            (getClickableState("auto", 1312) ? buyBuyable("res", 12) : false)
+            (auto2() && getClickableState("auto", 1311) ? buyBuyable("res", 11) : false),
+            (auto2() && getClickableState("auto", 1312) ? buyBuyable("res", 12) : false)
         }
         if (getClickableState("auto", 1302) == true) {
-            (getClickableState("auto", 1321) ? buyMaxBuyable("res", 21) : false),
-            (getClickableState("auto", 1322) ? buyMaxBuyable("res", 22) : false),
-            (getClickableState("auto", 1331) ? buyMaxBuyable("res", 31) : false),
-            (getClickableState("auto", 1332) ? buyMaxBuyable("res", 32) : false),
-            (getClickableState("auto", 1341) ? buyMaxBuyable("res", 41) : false),
-            (getClickableState("auto", 1342) ? buyMaxBuyable("res", 42) : false)
+            (auto3() && getClickableState("auto", 1321) ? buyMaxBuyable("res", 21) : false),
+            (auto3() && getClickableState("auto", 1322) ? buyMaxBuyable("res", 22) : false),
+            (auto3() && getClickableState("auto", 1331) ? buyMaxBuyable("res", 31) : false),
+            (auto3() && getClickableState("auto", 1332) ? buyMaxBuyable("res", 32) : false),
+            (auto3() && getClickableState("auto", 1341) ? buyMaxBuyable("res", 41) : false),
+            (auto3() && getClickableState("auto", 1342) ? buyMaxBuyable("res", 42) : false)
         }
         else if (getClickableState("auto", 1302) == false) {
-            (getClickableState("auto", 1321) ? buyBuyable("res", 21) : false),
-            (getClickableState("auto", 1322) ? buyBuyable("res", 22) : false),
-            (getClickableState("auto", 1331) ? buyBuyable("res", 31) : false),
-            (getClickableState("auto", 1332) ? buyBuyable("res", 32) : false),
-            (getClickableState("auto", 1341) ? buyBuyable("res", 41) : false),
-            (getClickableState("auto", 1342) ? buyBuyable("res", 42) : false)
+            (auto3() && getClickableState("auto", 1321) ? buyBuyable("res", 21) : false),
+            (auto3() && getClickableState("auto", 1322) ? buyBuyable("res", 22) : false),
+            (auto3() && getClickableState("auto", 1331) ? buyBuyable("res", 31) : false),
+            (auto3() && getClickableState("auto", 1332) ? buyBuyable("res", 32) : false),
+            (auto3() && getClickableState("auto", 1341) ? buyBuyable("res", 41) : false),
+            (auto3() && getClickableState("auto", 1342) ? buyBuyable("res", 42) : false)
         }
     },
     update(diff) {

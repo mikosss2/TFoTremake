@@ -88,5 +88,6 @@ addLayer("inf", {
     },
     update(diff) {
         if (player.points.gte(new Decimal(2).pow(1024))) player.points = new Decimal(2).pow(1024)
+        
     },
 })
