@@ -40,7 +40,7 @@ addLayer("inf", {
             challengeDescription() {return "'U' Variable is weak"},
             goalDescription: "Reach f(t) = 1.79e308",
             canComplete: function() {return player["f"].points.gte(new Decimal(2).pow(1024))},
-            rewardDescription: "Unlock 'a, b, c, & d' Variables autobuyer and turn their cost into requirement.",
+            rewardDescription: "Unlock 'a, b, c, & d' Variables max autobuyer and turn their cost into requirement.",
             completionLimit: 1,
             onEnter() { layer1reset() },
             style: {"border-radius": "0px 15px 0px 0px", "width": "270px", "height": "270px"}
@@ -50,7 +50,7 @@ addLayer("inf", {
             challengeDescription() {return "Variables inflation is high (x16 Variables cost mult)"},
             goalDescription: "Reach f(t) = 1.79e308",
             canComplete: function() {return player["f"].points.gte(new Decimal(2).pow(1024))},
-            rewardDescription: "Unlock Additive and Multiplicative Research Upgrade autobuyer and turn their cost into requirement.",
+            rewardDescription: "Unlock Additive and Multiplicative Research Upgrade max autobuyer and turn their cost into requirement.",
             completionLimit: 1,
             onEnter() { layer1reset() },
             style: {"border-radius": "0px 0px 0px 0px", "width": "270px", "height": "270px"}
@@ -60,7 +60,7 @@ addLayer("inf", {
             challengeDescription() {return "Only 'a & b' Variable exist"},
             goalDescription: "Reach f(t) = 1.79e308",
             canComplete: function() {return player["f"].points.gte(new Decimal(2).pow(1024))},
-            rewardDescription: "Unlock 'a, b, c, & d' Variable Upgrade autobuyer and turn their cost into requirement.",
+            rewardDescription: "Unlock 'a, b, c, & d' Variable Upgrade max autobuyer and turn their cost into requirement.",
             completionLimit: 1,
             onEnter() { layer1reset() },
             style: {"border-radius": "0px 0px 0px 0px", "width": "270px", "height": "270px"}
@@ -70,7 +70,7 @@ addLayer("inf", {
             challengeDescription() {return "Warp Warp Time is much weaker"},
             goalDescription: "Reach f(t) = 1.79e308",
             canComplete: function() {return player["f"].points.gte(new Decimal(2).pow(1024))},
-            rewardDescription: "Unlock Time Fragments Generator and Time Warp autobuyer and turn their cost into requirement.",
+            rewardDescription: "Unlock Time Fragments Generator and Time Warp max autobuyer and turn their cost into requirement.",
             completionLimit: 1,
             onEnter() { layer1reset() },
             style: {"border-radius": "0px 0px 0px 15px", "width": "270px", "height": "270px"}
@@ -80,7 +80,7 @@ addLayer("inf", {
             challengeDescription() {return "Combination of all of the challenges in this tab <br>  Time: " + formatTime(player["f"].realtime)},
             goalDescription: "Reach f(t) = 1.79e308",
             canComplete: function() {return player["f"].points.gte(new Decimal(2).pow(1024)) && player["f"].realtime.lte(32)},
-            rewardDescription: "Unlock T.M.G.E. and Warp Warp Time autobuyer & your g(t) value will go past g(t) = 1.79e308.",
+            rewardDescription: "Unlock T.M.G.E. and Warp Warp Time max autobuyer & your g(t) value will go past g(t) = 1.79e308.",
             completionLimit: 1,
             onEnter() { layer1reset() },
             style: {"border-radius": "0px 0px 15px 0px", "width": "270px", "height": "270px"}
