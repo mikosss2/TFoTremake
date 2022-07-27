@@ -576,8 +576,8 @@ addLayer("auto", {
                 }
             },
             style() {
-                if (hasChallenge("inf", 32) && (getClickableState("auto", 1421) == false)) return {'background-color': 'red',"border-radius": "0px 0px 15px 0px", "width": "270px", "height": "180px"}
-                else if (hasChallenge("inf", 32) && (getClickableState("auto", 1421) == true)) return {'background-color': '#FFFFFF',"border-radius": "0px 0px 15px 0px", "width": "270px", "height": "180px"}
+                if (hasChallenge("inf", 32) && (getClickableState("auto", 1421) == false)) return {'background-color': 'red',"border-radius": "0px 0px 0px 15px", "width": "270px", "height": "180px"}
+                else if (hasChallenge("inf", 32) && (getClickableState("auto", 1421) == true)) return {'background-color': '#FFFFFF',"border-radius": "0px 0px 0px 15px", "width": "270px", "height": "180px"}
                 else if (getClickableState("auto", 1421) == false) return {'background-color': 'red',"border-radius": "15px 0px 0px 15px", "width": "270px", "height": "180px"}
                 else if (getClickableState("auto", 1421) == true) return {'background-color': '#FFFFFF',"border-radius": "15px 0px 0px 15px", "width": "270px", "height": "180px"}
             },

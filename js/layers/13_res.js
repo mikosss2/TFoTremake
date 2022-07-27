@@ -123,7 +123,7 @@ addLayer("res", {
         12: {
             title() {return "Multiplicative Research Upgrade <br> (x)"},
             cost(x) { return new Decimal(100000000).mul(new Decimal(1.5).pow(x))},
-            display() { return "Increase the value of knowlege gain additively <b>(x1.05)</b> Currrently: <b>x" + format(tmp.res.buyables[12].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 12)) + ")" + "<br> Cost: <b style='color:red;'> f(t) = " + format(this.cost(getBuyableAmount("res", 12)))},
+            display() { return "Increase the value of knowlege gain multiplicatively <b>(x1.05)</b> Currrently: <b>x" + format(tmp.res.buyables[12].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 12)) + ")" + "<br> Cost: <b style='color:red;'> f(t) = " + format(this.cost(getBuyableAmount("res", 12)))},
             canAfford() { return player["f"].points.gte(this.cost()) },
             buy() {
                 if (!hasChallenge("inf",21)) player["f"].points = player["f"].points.sub(this.cost())
