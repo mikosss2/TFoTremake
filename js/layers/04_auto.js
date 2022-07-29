@@ -344,7 +344,7 @@ addLayer("auto", {
             },
             style() {
                 if (hasChallenge("inf", 21) && (getClickableState("auto", 1311) == false)) return {'background-color': 'red',"border-radius": "0px 0px 0px 15px", "width": "300px", "height": "120px"}
-                else if (hasChallenge("inf", 21) && (getClickableState("auto", 1311) == true)) return {'background-color': 'red',"border-radius": "0px 0px 0px 15px", "width": "300px", "height": "120px"}
+                else if (hasChallenge("inf", 21) && (getClickableState("auto", 1311) == true)) return {'background-color': '#FFFFFF',"border-radius": "0px 0px 0px 15px", "width": "300px", "height": "120px"}
                 else if (getClickableState("auto", 1311) == false) return {'background-color': 'red',"border-radius": "15px 0px 0px 15px", "width": "300px", "height": "120px"}
                 else if (getClickableState("auto", 1311) == true) return {'background-color': '#FFFFFF',"border-radius": "15px 0px 0px 15px", "width": "300px", "height": "120px"}
             },
@@ -363,7 +363,7 @@ addLayer("auto", {
             },
             style() {
                 if (hasChallenge("inf", 21) && (getClickableState("auto", 1312) == false)) return {'background-color': 'red',"border-radius": "0px 0px 15px 0px", "width": "300px", "height": "120px"}
-                else if (hasChallenge("inf", 21) && (getClickableState("auto", 1312) == true)) return {'background-color': 'red',"border-radius": "0px 0px 15px 0px", "width": "300px", "height": "120px"}
+                else if (hasChallenge("inf", 21) && (getClickableState("auto", 1312) == true)) return {'background-color': '#FFFFFF',"border-radius": "0px 0px 15px 0px", "width": "300px", "height": "120px"}
                 else if (getClickableState("auto", 1312) == false) return {'background-color': 'red',"border-radius": "0px 15px 15px 0px", "width": "300px", "height": "120px"}
                 else if (getClickableState("auto", 1312) == true) return {'background-color': '#FFFFFF',"border-radius": "0px 15px 15px 0px", "width": "300px", "height": "120px"}
             },
@@ -399,7 +399,7 @@ addLayer("auto", {
             },
             style() {
                 if (hasChallenge("inf", 22) && (getClickableState("auto", 1321) == false)) return {'background-color': 'red',"border-radius": "0px 0px 0px 0px", "width": "300px", "height": "120px"}
-                else if (hasChallenge("inf", 22) && (getClickableState("auto", 1321) == true)) return {'background-color': 'red',"border-radius": "0px 0px 0px 0px", "width": "300px", "height": "120px"}
+                else if (hasChallenge("inf", 22) && (getClickableState("auto", 1321) == true)) return {'background-color': '#FFFFFF',"border-radius": "0px 0px 0px 0px", "width": "300px", "height": "120px"}
                 else if (getClickableState("auto", 1321) == false) return {'background-color': 'red',"border-radius": "15px 0px 0px 0px", "width": "300px", "height": "120px"}
                 else if (getClickableState("auto", 1321) == true) return {'background-color': '#FFFFFF',"border-radius": "15px 0px 0px 0px", "width": "300px", "height": "120px"}
             },
@@ -418,7 +418,7 @@ addLayer("auto", {
             },
             style() {
                 if (hasChallenge("inf", 22) && (getClickableState("auto", 1322) == false)) return {'background-color': 'red',"border-radius": "0px 0px 0px 0px", "width": "300px", "height": "120px"}
-                else if (hasChallenge("inf", 22) && (getClickableState("auto", 1322) == true)) return {'background-color': 'red',"border-radius": "0px 0px 0px 0px", "width": "300px", "height": "120px"}
+                else if (hasChallenge("inf", 22) && (getClickableState("auto", 1322) == true)) return {'background-color': '#FFFFFF',"border-radius": "0px 0px 0px 0px", "width": "300px", "height": "120px"}
                 else if (getClickableState("auto", 1322) == false) return {'background-color': 'red',"border-radius": "0px 15px 0px 0px", "width": "300px", "height": "120px"}
                 else if (getClickableState("auto", 1322) == true) return {'background-color': '#FFFFFF',"border-radius": "0px 15px 0px 0px", "width": "300px", "height": "120px"}
             },
