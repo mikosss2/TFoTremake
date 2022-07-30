@@ -1,6 +1,6 @@
 function getMax(points, cost, expo) {
     max = new Decimal(0)
-    max = max.add(Decimal.floor((((new Decimal(points).div(cost).mul(new Decimal(expo).sub(1)).add(1)).log10()).div(new Decimal(expo).log10()))))
+    max = max.add(Decimal.floor((((new Decimal(points).div(cost).mul(new Decimal(expo).sub(1)).add(1.01)).log10()).div(new Decimal(expo).log10()))))
     return max
 }
 
