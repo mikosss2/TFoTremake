@@ -28,11 +28,21 @@ addLayer("res", {
             ],
             unlocked() {return hasUpgrade("u",21)},
         },
+        "Study Tree": {
+            content:[
+                ["layer-proxy", ["st", [
+                ]]],
+                ["display-text", function() { return "<h1><b>SEE YA NEXT UPDATE!!!</b>" },],
+            ],
+            buttonStyle() { return {'border-color': '#FFE77B'}},
+            unlocked() {return hasMilestone("inf",5)},
+        },
     },
     name: "Research", 
     symbol: "R",
     color: "#234F1E", 
     nodeStyle() {
+        if (hasMilestone("inf",5)) return {"background": "radial-gradient(#FFE77B, #234F1E)", "background-origin": "border-box"}
     },
     resource: "Knowledge",
     baseResource: "f(t)",
@@ -49,10 +59,10 @@ addLayer("res", {
             display() {return "<h2>Buy Max"},
             canClick() {return true},
             onClick() {
-                buyMaxBuyable("res", 11) & buyMaxBuyable("res", 12)
+                buyMaxBuyable("res", 12) & buyMaxBuyable("res", 11)
             },
             onHold() {
-                buyMaxBuyable("res", 11) & buyMaxBuyable("res", 12)
+                buyMaxBuyable("res", 12) & buyMaxBuyable("res", 11)
             },
             style() {
                 return {"border-radius": "15px 15px 0px 0px", "width": "600px", "min-height": "40px"}
@@ -63,10 +73,10 @@ addLayer("res", {
             display() {return "<h2>Buy Max"},
             canClick() {return true},
             onClick() {
-                buyMaxBuyable("res", 21) & buyMaxBuyable("res", 22) & buyMaxBuyable("res", 31) & buyMaxBuyable("res", 32) & buyMaxBuyable("res", 41) & buyMaxBuyable("res", 42)
+                buyMaxBuyable("res", 22) & buyMaxBuyable("res", 21) & buyMaxBuyable("res", 42) & buyMaxBuyable("res", 41) & buyMaxBuyable("res", 32) & buyMaxBuyable("res", 31)
             },
             onHold() {
-                buyMaxBuyable("res", 21) & buyMaxBuyable("res", 22) & buyMaxBuyable("res", 31) & buyMaxBuyable("res", 32) & buyMaxBuyable("res", 41) & buyMaxBuyable("res", 42)
+                buyMaxBuyable("res", 22) & buyMaxBuyable("res", 21) & buyMaxBuyable("res", 42) & buyMaxBuyable("res", 41) & buyMaxBuyable("res", 32) & buyMaxBuyable("res", 31)
             },
             style() {
                 if (tmp["res"].buyables[22].unlocked) return {"border-radius": "15px 15px 0px 0px", "width": "600px", "min-height": "40px"}
@@ -152,7 +162,9 @@ addLayer("res", {
             title() {return "'U' Variable Upgrade"},
             cost(x) { return new Decimal(1).mul(new Decimal(10).pow(x))},
             display() { 
-                if (hasUpgrade("res",21)) return "<b>x2.5</b> 'U' variable value <br> Currently: <b> x" + format(tmp.res.buyables[21].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 21)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 21))) + " Knowledge" 
+                if (hasMilestone("inf",4) && hasUpgrade("res",21)) return "<b>x2.5</b> 'U' variable value <br> Currently: <b> x" + format(tmp.res.buyables[21].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 21)) + " + " + format(infMs4()) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 21))) + " Knowledge" 
+                else if (hasMilestone("inf",4)) return "<b>x2</b> 'U' variable value <br> Currently: <b> x" + format(tmp.res.buyables[21].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 21)) + " + " + format(infMs4()) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 21))) + " Knowledge" 
+                else if (hasUpgrade("res",21)) return "<b>x2.5</b> 'U' variable value <br> Currently: <b> x" + format(tmp.res.buyables[21].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 21)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 21))) + " Knowledge" 
                 else return "<b>x2</b> 'U' variable value <br> Currently: <b> x" + format(tmp.res.buyables[21].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 21)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("res", 21))) + " Knowledge" 
             },
             canAfford() { return player["res"].points.gte(this.cost()) },
@@ -167,9 +179,13 @@ addLayer("res", {
                 setBuyableAmount("res", 21, getBuyableAmount("res", 21).add(new Decimal(max)))
             },
             effect() { 
+                amount = new Decimal(0)
+                amount = amount.add(getBuyableAmount("res", 21))
+                if (hasMilestone("inf",4)) amount = amount.add(infMs4())
+
                 eff = new Decimal(2)
                 if (hasUpgrade("res",21)) eff = eff.add(0.5)
-                eff = eff.pow(getBuyableAmount("res", 21))
+                eff = eff.pow(amount)
                 return eff
             },
             style(){ 

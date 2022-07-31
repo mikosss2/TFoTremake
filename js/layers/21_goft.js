@@ -5,6 +5,8 @@ addLayer("g", {
                 "main-display",
                 ["display-text", function() { return "You Are Gaining <h2><b style='color:#BF40BF;'>" + format(getResetGain("g")) + "</b></h2> g(t) Per Second" },],
                 "blank",
+                ["display-text", function() { return "You Have <h2><b style='color:#BF40BF;'>" + format(player["p"].points) + "</b></h2> PP" },],
+                "blank",
                 ["display-text", function() {
                     if (tmp["tm"].layerShown && tmp["pu"].layerShown && hasUpgrade("p",11) && hasUpgrade("p",12) && inChallenge("fd",11)) return "g(time+TimeSpeed) = g(time) + [wxyz⋅pU⋅(TimeSpeed)]^0.25"
                     else if (tmp["tm"].layerShown && tmp["pu"].layerShown && hasUpgrade("p",12) && inChallenge("fd",11)) return "g(time+TimeSpeed) = g(time) + [wxyz⋅pU⋅(TimeSpeed)⋅0.01]^0.25"
@@ -55,10 +57,10 @@ addLayer("g", {
             display() {return "<h2>Buy Max"},
             canClick() {return true},
             onClick() {
-                buyMaxBuyable("g", 11) & buyMaxBuyable("g", 21) & buyMaxBuyable("g", 31) & buyMaxBuyable("g", 41)
+                buyMaxBuyable("g", 41) & buyMaxBuyable("g", 31) & buyMaxBuyable("g", 21) & buyMaxBuyable("g", 11)
             },
             onHold() {
-                buyMaxBuyable("g", 11) & buyMaxBuyable("g", 21) & buyMaxBuyable("g", 31) & buyMaxBuyable("g", 41)
+                buyMaxBuyable("g", 41) & buyMaxBuyable("g", 31) & buyMaxBuyable("g", 21) & buyMaxBuyable("g", 11)
             },
             style() {
                 if (tmp["g"].clickables[12].unlocked) return {"border-radius": "15px 0px 0px 0px", "width": "280px", "min-height": "40px"}
@@ -70,16 +72,16 @@ addLayer("g", {
             display() {return "<h2>Buy Max"},
             canClick() {return true},
             onClick() {
-                buyMaxBuyable("g", 12) & buyMaxBuyable("g", 22) & buyMaxBuyable("g", 32) & buyMaxBuyable("g", 42)
+                buyMaxBuyable("g", 42) & buyMaxBuyable("g", 32) & buyMaxBuyable("g", 22) & buyMaxBuyable("g", 12)
             },
             onHold() {
-                buyMaxBuyable("g", 12) & buyMaxBuyable("g", 22) & buyMaxBuyable("g", 32) & buyMaxBuyable("g", 42)
+                buyMaxBuyable("g", 42) & buyMaxBuyable("g", 32) & buyMaxBuyable("g", 22) & buyMaxBuyable("g", 12)
             },
             style() {
                 if (tmp["g"].clickables[11].unlocked) return {"border-radius": "0px 15px 0px 0px", "width": "200px", "min-height": "40px"}
                 else return {"border-radius": "15px 15px 0px 0px", "width": "200px", "min-height": "40px", "margin-left": "280px"}
             },
-            unlocked() {return hasUpgrade("fd",13)}
+            unlocked() {return hasAchievement("A", 56)}
         },
     },
     buyables: {
@@ -93,7 +95,7 @@ addLayer("g", {
                 setBuyableAmount("g", 11, getBuyableAmount("g", 11).add(1))
             },
             buyMax() {
-                getMax(player["g"].points.abs(), this.cost(), 1.5)
+                getMax(player["g"].points, this.cost(), 1.5)
                 subCost(1.5, getBuyableAmount("g", 11), 1)
                 player["g"].points = player["g"].points.sub(new Decimal(sub))
                 setBuyableAmount("g", 11, getBuyableAmount("g", 11).add(new Decimal(max)))
@@ -346,7 +348,7 @@ addLayer("g", {
         gain = gain.add(buyableEffect("g",11).mul(buyableEffect("g",21)).mul(buyableEffect("g",31)).mul(buyableEffect("g",41)))
         gain = gain.mul(tmp.g.gainMult)
         gain = gain.pow(tmp.g.gainExp)
-        if (player.points.gte(new Decimal(2).pow(1024))) gain = new Decimal(0)
+        if (player.points.gte(infinityCap())) gain = new Decimal(0)
         return gain
     },
     gainMult() { // Calculate the multiplier for main currency from bonuses
@@ -372,10 +374,5 @@ addLayer("g", {
         let keep=[];
         if (layers[resettingLayer].row > this.row) {layerDataReset("g", keep);
         }
-        player["g"].points = player["g"].points.pow(0)
-        setBuyableAmount("g", 11, getBuyableAmount("g", 11).mul(0))
-        setBuyableAmount("g", 21, getBuyableAmount("g", 21).mul(0))
-        setBuyableAmount("g", 31, getBuyableAmount("g", 31).mul(0))
-        setBuyableAmount("g", 41, getBuyableAmount("g", 41).mul(0))
     },
 })

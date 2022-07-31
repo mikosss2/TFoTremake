@@ -3,10 +3,13 @@ addLayer("p", {
         "Prestige": {
             content:[
                 "main-display",
+                ["display-text", function() { if (hasMilestone("inf",2)) return "You Are Gaining <h2><b style='color:#BF40BF;'>" + format(getResetGain("p")) + "</b></h2> PP Per Second" },],
+                () => (hasMilestone("inf",2) ? "blank" :  ""),
                 ["display-text", function() { return "You Have <h2><b style='color:#63C5DA;'>" + format(player["f"].points) + "</b></h2> f(t)" },],
                 "blank",
-                "prestige-button",
+                () => (hasMilestone("inf",2) ? "" :  "prestige-button"),
                 "blank",
+                ["clickable", 11],
                 "buyables"
             ],
         },
@@ -14,6 +17,7 @@ addLayer("p", {
             content:[
                 "main-display",
                 "blank",
+                ["clickable", 21],
                 "upgrades",
             ],
         },
@@ -61,14 +65,44 @@ addLayer("p", {
         return exp
     },
     passiveGeneration() { 
-        return false
+        if (hasMilestone("inf",2)) return true
+        else return false
     },
     row: 1, // Row the layer is in on the tree (0 is the first row)
     displayRow: 2,
     layerShown(){return player["f"].best.gte(1e18) || hasAchievement("A", 51)},
     branches: ["f"],
     clickables: {
-
+        11: {
+            display() {return "<h2>Buy Max"},
+            canClick() {return true},
+            onClick() {
+                buyMaxBuyable("p", 11)
+            },
+            onHold() {
+                buyMaxBuyable("p", 11)
+            },
+            style() {
+                return {"border-radius": "15px 15px 0px 0px", "width": "270px", "min-height": "40px"}
+            },
+            unlocked() {return hasUpgrade("p",23)}
+        },
+        21: {
+            display() {return "<h2>Buy All"},
+            canClick() {return true},
+            onClick() {
+                buyUpgrade("p", 11) & buyUpgrade("p", 12) & buyUpgrade("p", 13) & buyUpgrade("p", 14) & buyUpgrade("p", 15)
+                buyUpgrade("p", 21) & buyUpgrade("p", 22) & buyUpgrade("p", 23) & buyUpgrade("p", 24) & buyUpgrade("p", 25)
+            },
+            onHold() {
+                buyUpgrade("p", 11) & buyUpgrade("p", 12) & buyUpgrade("p", 13) & buyUpgrade("p", 14) & buyUpgrade("p", 15)
+                buyUpgrade("p", 21) & buyUpgrade("p", 22) & buyUpgrade("p", 23) & buyUpgrade("p", 24) & buyUpgrade("p", 25)
+            },
+            style() {
+                return {"border-radius": "15px 15px 0px 0px", "width": "600px", "min-height": "40px"}
+            },
+            unlocked() {return hasMilestone("inf",5)}
+        },
     },
     buyables: {
         11: {
@@ -80,13 +114,20 @@ addLayer("p", {
                 player["p"].points = player["p"].points.sub(this.cost())
                 setBuyableAmount("p", 11, getBuyableAmount("p", 11).add(1))
             },
+            buyMax() {
+                getMax(player["p"].points.abs(), this.cost(), 10)
+                subCost(10, getBuyableAmount("p", 11), 1e72)
+                player["p"].points = player["p"].points.sub(new Decimal(sub))
+                setBuyableAmount("p", 11, getBuyableAmount("p", 11).add(new Decimal(max)))
+            },
             effect() { 
                 eff = new Decimal(2)
                 eff = eff.pow(getBuyableAmount("p",11))
                 return eff
             },
             style(){ 
-                return {"border-radius": "15px 15px 15px 15px", "width": "270px", "height": "180px"}
+                if (tmp["p"].clickables[11].unlocked) return {"border-radius": "0px 0px 15px 15px",'width': '270px', 'height': '180px'}
+                else return {"border-radius": "15px 15px 15px 15px", "width": "270px", "height": "180px"}
             },
             unlocked() {
                 return hasUpgrade("u",35)
@@ -102,7 +143,9 @@ addLayer("p", {
             currencyInternalName: "points",
             currencyLayer: "p",
             style(){ 
-                if (tmp["p"].upgrades[21].unlocked) return {"border-radius": "15px 0px 0px 0px",'width': '120px', 'height': '135px'}
+                if (tmp["p"].upgrades[21].unlocked && tmp["p"].clickables[21].unlocked) return {"border-radius": "0px 0px 0px 0px",'width': '120px', 'height': '135px'}
+                else if (tmp["p"].clickables[21].unlocked) return {"border-radius": "0px 0px 0px 15px", "width": "120px", "height": "135px"}
+                else if (tmp["p"].upgrades[21].unlocked) return {"border-radius": "15px 0px 0px 0px",'width': '120px', 'height': '135px'}
                 else return {"border-radius": "15px 0px 0px 15px", "width": "120px", "height": "135px"}
             },
             unlocked() {return true},
@@ -151,7 +194,9 @@ addLayer("p", {
             currencyInternalName: "points",
             currencyLayer: "p",
             style(){ 
-                if (tmp["p"].upgrades[25].unlocked) return {"border-radius": "0px 15px 0px 0px",'width': '120px', 'height': '135px'}
+                if (tmp["p"].upgrades[25].unlocked && tmp["p"].clickables[21].unlocked) return {"border-radius": "0px 0px 0px 0px",'width': '120px', 'height': '135px'}
+                else if (tmp["p"].clickables[21].unlocked) return {"border-radius": "0px 0px 15px 0px", "width": "120px", "height": "135px"}
+                else if (tmp["p"].upgrades[25].unlocked) return {"border-radius": "0px 15px 0px 0px",'width': '120px', 'height': '135px'}
                 else return {"border-radius": "0px 15px 15px 0px", "width": "120px", "height": "135px"}
             },
             unlocked() {return true},
@@ -182,7 +227,7 @@ addLayer("p", {
         },
         23: {
             title: "Pres-Upgrade 2.3",
-            description: "<b>Unlock</b> Buy Max button for Heavy Machines in Time Machine",
+            description: "<b>Unlock</b> Buy Max button for Heavy Machines in Time Machine and Buy Max button for More PP in Prestige",
             cost: new Decimal(1e250),
             currencyDisplayName: "PP",
             currencyInternalName: "points",
@@ -219,5 +264,23 @@ addLayer("p", {
     },
     automate() {
         
+    },
+    doReset(resettingLayer) {
+        let keep=[];
+        if (layers[resettingLayer].row > this.row) {layerDataReset("p", keep);
+        if (hasMilestone("inf", 3)) player[this.layer].upgrades = player[this.layer].upgrades.concat([22]);
+        if (hasAchievement("A", 51)) player[this.layer].upgrades = player[this.layer].upgrades.concat([23]);
+        if (hasAchievement("A", 51)) player[this.layer].upgrades = player[this.layer].upgrades.concat([15]);
+        if (hasAchievement("A", 51)) player[this.layer].upgrades = player[this.layer].upgrades.concat([13]);
+        }
+    },
+    onPrestige(gain) {
+        player["g"].points = player["g"].points.pow(0)
+        player["inf"].ms1amt = player["inf"].ms1amt.mul(0)
+        player["inf"].ms3amt = player["inf"].ms3amt.mul(0)
+        setBuyableAmount("g", 11, getBuyableAmount("g", 11).mul(0))
+        setBuyableAmount("g", 21, getBuyableAmount("g", 21).mul(0))
+        setBuyableAmount("g", 31, getBuyableAmount("g", 31).mul(0))
+        setBuyableAmount("g", 41, getBuyableAmount("g", 41).mul(0))
     },
 })

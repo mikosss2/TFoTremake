@@ -63,10 +63,10 @@ addLayer("f", {
             display() {return "<h2>Buy Max"},
             canClick() {return true},
             onClick() {
-                buyMaxBuyable("f", 11) & buyMaxBuyable("f", 21) & buyMaxBuyable("f", 31) & buyMaxBuyable("f", 41)
+                buyMaxBuyable("f", 41) & buyMaxBuyable("f", 31) & buyMaxBuyable("f", 21) & buyMaxBuyable("f", 11)
             },
             onHold() {
-                buyMaxBuyable("f", 11) & buyMaxBuyable("f", 21) & buyMaxBuyable("f", 31) & buyMaxBuyable("f", 41)
+                buyMaxBuyable("f", 41) & buyMaxBuyable("f", 31) & buyMaxBuyable("f", 21) & buyMaxBuyable("f", 11)
             },
             style() {
                 return {"border-radius": "15px 15px 0px 0px", "width": "480px", "min-height": "40px"}
@@ -220,7 +220,7 @@ addLayer("f", {
         gain = gain.add(buyableEffect("f",11).mul(buyableEffect("f",21)).mul(buyableEffect("f",31)).mul(buyableEffect("f",41)))
         gain = gain.mul(tmp.f.gainMult)
         gain = gain.pow(tmp.f.gainExp)
-        if (player.points.gte(new Decimal(2).pow(1024))) gain = new Decimal(0)
+        if (player.points.gte(infinityCap())) gain = new Decimal(0)
         return gain
     },
     gainMult() { // Calculate the multiplier for main currency from bonuses

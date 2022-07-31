@@ -15,14 +15,45 @@ function startft() {
     return start
 }
 
+function buyMaxDistri(layer, type) {
+    able = new Decimal(0)
+    if ((layer == "f") && (type =="1")) {
+        if (canBuyBuyable("f", 11)) able = able.add(1)
+        if (canBuyBuyable("f", 21)) able = able.add(1)
+        if (canBuyBuyable("f", 31)) able = able.add(1)
+        if (canBuyBuyable("f", 41)) able = able.add(1)
+        if (hasChallenge("inf",12)) able = new Decimal(1)
+    }
+    else if ((layer == "res") && (type =="1")) {
+        if (canBuyBuyable("res", 11)) able = able.add(1)
+        if (canBuyBuyable("res", 12)) able = able.add(1)
+        if (hasChallenge("inf",21)) able = new Decimal(1)
+    }
+    else if ((layer == "res") && (type =="2")) {
+        if (canBuyBuyable("res", 21)) able = able.add(1)
+        if (canBuyBuyable("res", 22)) able = able.add(1)
+        if (canBuyBuyable("res", 31)) able = able.add(1)
+        if (canBuyBuyable("res", 32)) able = able.add(1)
+        if (canBuyBuyable("res", 41)) able = able.add(1)
+        if (canBuyBuyable("res", 42)) able = able.add(1)
+        if (hasChallenge("inf",22)) able = new Decimal(1)
+    }
+    else if ((layer == "g") && (type =="1")) {
+        if (canBuyBuyable("g", 11)) able = able.add(1)
+        if (canBuyBuyable("g", 21)) able = able.add(1)
+        if (canBuyBuyable("g", 31)) able = able.add(1)
+        if (canBuyBuyable("g", 41)) able = able.add(1)
+    }
+    else if ((layer == "g") && (type =="2")) {
+        if (canBuyBuyable("g", 12)) able = able.add(1)
+        if (canBuyBuyable("g", 22)) able = able.add(1)
+        if (canBuyBuyable("g", 32)) able = able.add(1)
+        if (canBuyBuyable("g", 42)) able = able.add(1)
+    }
+    return able
+}
+
 function layer1reset() {
-    player.points = player.points.pow(0)
-    player["g"].points = player["g"].points.pow(0)
-    setBuyableAmount("g", 11, getBuyableAmount("g", 11).mul(0))
-    setBuyableAmount("g", 21, getBuyableAmount("g", 21).mul(0))
-    setBuyableAmount("g", 31, getBuyableAmount("g", 31).mul(0))
-    setBuyableAmount("g", 41, getBuyableAmount("g", 41).mul(0))
-    player["pu"].points = player["pu"].points.pow(0)
     let keep=[];
     {layerDataReset("f", keep);}
     {layerDataReset("u", keep);
@@ -37,4 +68,29 @@ function layer1reset() {
     if (hasUpgrade("fd",13)) player["res"].upgrades = player["res"].upgrades.concat([21,22,23,24,25]);
     if (hasAchievement("A", 31)) player["res"].upgrades = player["res"].upgrades.concat([15]);}
     {layerDataReset("tm", keep);}
+    player["pu"].points = player["pu"].points.pow(0)
+    setBuyableAmount("g", 11, getBuyableAmount("g", 11).mul(0))
+    setBuyableAmount("g", 21, getBuyableAmount("g", 21).mul(0))
+    setBuyableAmount("g", 31, getBuyableAmount("g", 31).mul(0))
+    setBuyableAmount("g", 41, getBuyableAmount("g", 41).mul(0))
+    player["inf"].ms3amt = player["inf"].ms3amt.mul(0)
+    player["inf"].ms1amt = player["inf"].ms1amt.mul(0)
+    player["g"].points = player["g"].points.pow(0)
+    player.points = player.points.pow(0)
+}
+
+function layer2reset() {
+    let keep=[];
+    {layerDataReset("p", keep);
+    if (hasMilestone("inf", 3)) player["p"].upgrades = player["p"].upgrades.concat([22]);
+    if (hasAchievement("A", 51)) player["p"].upgrades = player["p"].upgrades.concat([23]);
+    if (hasAchievement("A", 51)) player["p"].upgrades = player["p"].upgrades.concat([15]);
+    if (hasAchievement("A", 51)) player["p"].upgrades = player["p"].upgrades.concat([13]);}
+    {layerDataReset("g", keep);}
+    {layerDataReset("pu", keep);
+    if (hasAchievement("A", 61)) player["pu"].upgrades = player["pu"].upgrades.concat([23]);
+    if (hasAchievement("A", 61)) player["pu"].upgrades = player["pu"].upgrades.concat([14]);}
+    {layerDataReset("fd", keep);
+    if (hasMilestone("inf",3)) player["fd"].upgrades = player["fd"].upgrades.concat([13]);}
+    layer1reset()
 }

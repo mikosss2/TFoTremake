@@ -75,7 +75,7 @@ addLayer("A", {
         18: {
             name: "---",
             done() { return false },
-            tooltip: "<b>---</b><br><br> ---",
+            tooltip: "<b>You will not get this until the very endgame, and yes, I will complete this remake</b><br><br> Reach Endgame",
             style(){ 
                 if (tmp["A"].achievements[28].unlocked) return {"border-radius": "0px 15px 0px 0px",'height': '64px', 'width': '64px'}
                 else return {"border-radius": "0px 15px 15px 0px",'height': '64px', 'width': '64px'}
@@ -137,9 +137,9 @@ addLayer("A", {
             unlocked() {return player["f"].best.gte(10000) || hasAchievement("A",21)},
         },
         27: {
-            name: "---",
-            done() { return false },
-            tooltip: "<b>---</b><br><br> ---",
+            name: "A (2) HUNDRED ???",
+            done() { return player['u'].points.gte(new Decimal(10).pow(200)) },
+            tooltip: "<b>sheesh</b><br><br> Have 1e200 'U' variable value",
             style(){ 
                 return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
             },
@@ -202,9 +202,9 @@ addLayer("A", {
             unlocked() {return hasUpgrade("u",14) || hasAchievement("A",31)},
         },
         36: {
-            name: "---",
-            done() { return false },
-            tooltip: "<b>---</b><br><br> ---",
+            name: "A HUNDRED ???",
+            done() { return buyableEffect("res",11).gte(100) },
+            tooltip: "<b>buying this rn is a worthless</b><br><br> Additive Research Upgrade base is 100",
             style(){ 
                 return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
             },
@@ -276,9 +276,9 @@ addLayer("A", {
             unlocked() {return hasUpgrade("res",15) || hasAchievement("A",41)},
         },
         46: {
-            name: "---",
-            done() { return false },
-            tooltip: "<b>---</b><br><br> ---",
+            name: "big numbers",
+            done() { return player["tm"].points.gte(new Decimal(2).pow(1024)) },
+            tooltip: "<b>meh infinity is not a big deal rn...</b><br><br> Have 1.80e308 Time Fragments",
             style(){ 
                 return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
             },
@@ -350,11 +350,11 @@ addLayer("A", {
             unlocked() {return player["f"].best.gte(1e18) || hasAchievement("A",51)},
         },
         56: {
-            name: "---",
-            done() { return false },
-            tooltip: "<b>---</b><br><br> ---",
+            name: "inPPinite",
+            done() { return player["p"].best.gte(new Decimal(2).pow(1024)) },
+            tooltip: "<b>a lot of PP</b><br><br> have infinite PP, PP means Prestige Points not...<br><br>Reward: Unlock Buy Max button for Boost 'w, x, y, & z' Variable",
             style(){ 
-                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px', "color": "#680CA6"}
             },
             unlocked() {return player["f"].best.gte(1e18) || hasAchievement("A",51)},
         },
@@ -397,9 +397,9 @@ addLayer("A", {
             unlocked() {return hasUpgrade("p",13) || hasAchievement("A",61)},
         },
         63: {
-            name: "---",
-            done() { return false },
-            tooltip: "<b>---</b><br><br> ---",
+            name: "r u lost?",
+            done() { return player["g"].points.gte(new Decimal(10).pow(1000)) },
+            tooltip: "<b>yes</b><br><br> Have g(t)=1e1000",
             style(){ 
                 return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
             },
@@ -489,9 +489,9 @@ addLayer("A", {
             unlocked() {return player["f"].points.gte(new Decimal(2).pow(1024)) || hasAchievement("A",71)},
         },
         75: {
-            name: "---",
-            done() { return false },
-            tooltip: "<b>---</b><br><br> ---",
+            name: "From the top",
+            done() { return player["inf"].points.gte(1) },
+            tooltip: "<b>AGAIN?????</b><br><br> Have atleast 1 ∞",
             style(){ 
                 return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
             },
@@ -530,7 +530,8 @@ addLayer("A", {
             done() { return player["fd"].unlocked },
             tooltip: "<b>The next to 3rd Dimension</b><br><br> Unlock the 4th Dimension",
             style(){ 
-                return {"border-radius": "0px 0px 0px 15px",'height': '64px', 'width': '64px'}
+                if (tmp["A"].achievements[91].unlocked) return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+                else return {"border-radius": "0px 0px 0px 15px",'height': '64px', 'width': '64px'}
             },
             unlocked() {return player["fd"].unlocked || hasAchievement("A",81)},
         },
@@ -593,9 +594,82 @@ addLayer("A", {
             done() { return false },
             tooltip: "<b>---</b><br><br> ---",
             style(){ 
-                return {"border-radius": "0px 0px 15px 0px",'height': '64px', 'width': '64px'}
+                if (tmp["A"].achievements[98].unlocked) return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+                else return {"border-radius": "0px 0px 15px 0px",'height': '64px', 'width': '64px'}
             },
             unlocked() {return player["fd"].unlocked || hasAchievement("A",81)},
+        },
+        91: {
+            name: "Study Tree",
+            done() { return hasMilestone("inf",5) },
+            tooltip: "<b>Get bombarded by pop-ups</b><br><br> Unlock the Study Tree",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 15px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return hasMilestone("inf",5) || hasAchievement("A",91)},
+        },
+        92: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return hasMilestone("inf",5) || hasAchievement("A",91)},
+        },
+        93: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return hasMilestone("inf",5) || hasAchievement("A",91)},
+        },
+        94: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return hasMilestone("inf",5) || hasAchievement("A",91)},
+        },
+        95: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return hasMilestone("inf",5) || hasAchievement("A",91)},
+        },
+        96: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return hasMilestone("inf",5) || hasAchievement("A",91)},
+        },
+        97: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return hasMilestone("inf",5) || hasAchievement("A",91)},
+        },
+        98: {
+            name: "---",
+            done() { return false },
+            tooltip: "<b>---</b><br><br> ---",
+            style(){ 
+                return {"border-radius": "0px 0px 15px 0px",'height': '64px', 'width': '64px'}
+            },
+            unlocked() {return hasMilestone("inf",5) || hasAchievement("A",91)},
         },
     }
 })

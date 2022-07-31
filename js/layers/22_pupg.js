@@ -5,6 +5,7 @@ addLayer("pu", {
                 "main-display",
                 ["display-text", function() { return "You Have <h2><b style='color:#BF40BF;'>" + format(player["g"].points) + "</b></h2> g(t)" },],
                 "blank",
+                "clickables",
                 "upgrades"
             ],
         },
@@ -25,7 +26,22 @@ addLayer("pu", {
     passiveGeneration() { return true },
     type: "normal", 
     clickables: {
-
+        11: {
+            display() {return "<h2>Buy All"},
+            canClick() {return true},
+            onClick() {
+                buyUpgrade("pu", 11) & buyUpgrade("pu", 12) & buyUpgrade("pu", 13) & buyUpgrade("pu", 14) & buyUpgrade("pu", 15)
+                buyUpgrade("pu", 21) & buyUpgrade("pu", 22) & buyUpgrade("pu", 23) & buyUpgrade("pu", 24) & buyUpgrade("pu", 25)
+            },
+            onHold() {
+                buyUpgrade("pu", 11) & buyUpgrade("pu", 12) & buyUpgrade("pu", 13) & buyUpgrade("pu", 14) & buyUpgrade("pu", 15)
+                buyUpgrade("pu", 21) & buyUpgrade("pu", 22) & buyUpgrade("pu", 23) & buyUpgrade("pu", 24) & buyUpgrade("pu", 25)
+            },
+            style() {
+                return {"border-radius": "15px 15px 0px 0px", "width": "600px", "min-height": "40px"}
+            },
+            unlocked() {return hasMilestone("inf",5)}
+        },
     },
     upgrades: {
         11: {
@@ -41,7 +57,8 @@ addLayer("pu", {
                 return eff
             },
             style(){ 
-                return {"border-radius": "15px 0px 0px 0px", "width": "120px", "height": "135px"}
+                if (tmp["pu"].clickables[11].unlocked) return {"border-radius": "0px 0px 0px 0px",'width': '120px', 'height': '135px'}
+                else return {"border-radius": "15px 0px 0px 0px", "width": "120px", "height": "135px"}
             },
         },
         12: {
@@ -136,7 +153,8 @@ addLayer("pu", {
                 return "<b>x" + format(upgradeEffect("pu", 15))
             },
             style(){ 
-                return {"border-radius": "0px 15px 0px 0px", "width": "120px", "height": "135px"}
+                if (tmp["pu"].clickables[11].unlocked) return {"border-radius": "0px 0px 0px 0px",'width': '120px', 'height': '135px'}
+                else return {"border-radius": "0px 15px 0px 0px", "width": "120px", "height": "135px"}
             },
         },
         21: {
@@ -267,8 +285,8 @@ addLayer("pu", {
     doReset(resettingLayer) {
         let keep=[];
         if (layers[resettingLayer].row > this.row) {layerDataReset("u", keep);
-        if (hasAchievement("A", 21)) player[this.layer].upgrades = player[this.layer].upgrades.concat([21]);
-        if (hasAchievement("A", 21)) player[this.layer].upgrades = player[this.layer].upgrades.concat([14]);
+        if (hasAchievement("A", 61)) player[this.layer].upgrades = player[this.layer].upgrades.concat([23]);
+        if (hasAchievement("A", 61)) player[this.layer].upgrades = player[this.layer].upgrades.concat([14]);
         }
     },
 })

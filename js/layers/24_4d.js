@@ -4,7 +4,7 @@ addLayer("fd", {
             content:[
                 "main-display",
                 ["display-text", function() { 
-                    if (getResetGain("fd").gte(new Decimal(2).pow(32))) return "You Are Gaining <h2><b style='color:#797EF6;'>" + format(getResetGain("fd")) + "</b></h2> Distortion Per Second" 
+                    if (getResetGain("fd").gte(new Decimal(2).pow(32).mul(infMs2()))) return "You Are Gaining <h2><b style='color:#797EF6;'>" + format(getResetGain("fd")) + "</b></h2> Distortion Per Second" 
                     else return "You Are Gaining <h2><b style='color:#FF7F7F;'>" + format(getResetGain("fd")) + "</b></h2> Distortion Per Second" 
                 },],
                 () => (hasUpgrade("p",25) ? "blank" :  ""),
@@ -26,6 +26,7 @@ addLayer("fd", {
             content:[
                 "main-display",
                 "blank",
+                "clickables",
                 "upgrades",
             ],
         },
@@ -33,7 +34,7 @@ addLayer("fd", {
     name: "4th Dimension", 
     symbol: "4",
     color() { 
-        if (getResetGain("fd").gte(new Decimal(2).pow(32))) return "#797EF6"
+        if (getResetGain("fd").gte(new Decimal(2).pow(32).mul(infMs2()))) return "#797EF6"
         else return "#FF7F7F"
     },
     nodeStyle() {
@@ -53,13 +54,25 @@ addLayer("fd", {
     prestigeButtonText() {return "Unlock 4th Dimension"},
     clickables: {
         11: {
+            display() {return "<h2>Buy All"},
+            canClick() {return true},
+            onClick() {
+                buyUpgrade("fd", 11) & buyUpgrade("fd", 12) & buyUpgrade("fd", 13) & buyUpgrade("fd", 14) & buyUpgrade("fd", 15)
+            },
+            onHold() {
+                buyUpgrade("fd", 11) & buyUpgrade("fd", 12) & buyUpgrade("fd", 13) & buyUpgrade("fd", 14) & buyUpgrade("fd", 15)
+            },
+            style() {
+                return {"border-radius": "15px 15px 0px 0px", "width": "600px", "min-height": "40px"}
+            },
+            unlocked() {return hasMilestone("inf",5)}
         },
     },
     challenges: {
         11: {
             name: "4th Dimension Machine",
             challengeDescription() {
-                if (getResetGain("fd").gte(new Decimal(2).pow(32))) return "Your production of <b> Time Fragments </b> and <b> functions </b> is raised to 1/4 when in 4th Dimension. You can only gain Distorion when in 4th Dimension and is based on Time Speed.<br><b>The machine cannot handle this much Distortion, it's production is decreased..."
+                if (getResetGain("fd").gte(new Decimal(2).pow(32).mul(infMs2()))) return "Your production of <b> Time Fragments </b> and <b> functions </b> is raised to 1/4 when in 4th Dimension. You can only gain Distorion when in 4th Dimension and is based on Time Speed.<br><b>The machine cannot handle this much Distortion, it's production is decreased..."
                 else return "Your production of <b> Time Fragments </b> and <b> functions </b> is raised to 1/4 when in 4th Dimension. You can only gain Distorion when in 4th Dimension and is based on Time Speed."
             },
             goalDescription: "> 1 Time Speed",
@@ -68,7 +81,7 @@ addLayer("fd", {
             completionLimit: 1,
             onEnter() { layer1reset() },
             style() {
-                if (inChallenge("fd",11) && getResetGain("fd").gte(new Decimal(2).pow(32))) return {"background": "radial-gradient(#FF7F7F, #797EF6)", "border-radius": "15px 15px 15px 15px", "width": "540px", "height": "240px", "padding": "15px"}
+                if (inChallenge("fd",11) && getResetGain("fd").gte(new Decimal(2).pow(32).mul(infMs2()))) return {"background": "radial-gradient(#FF7F7F, #797EF6)", "border-radius": "15px 15px 15px 15px", "width": "540px", "height": "240px", "padding": "15px"}
                 else if (inChallenge("fd",11)) return {"background": "radial-gradient(#FF7F7F, #FF7F7F, #797EF6)", "border-radius": "15px 15px 15px 15px", "width": "540px", "height": "240px", "padding": "15px"}
                 else return {"background": "#FF7F7F", "border-radius": "15px 15px 15px 15px", "width": "540px", "height": "240px", "padding": "15px"}
             },
@@ -193,7 +206,8 @@ addLayer("fd", {
             currencyInternalName: "points",
             currencyLayer: "fd",
             style(){ 
-                return {"border-radius": "15px 0px 0px 15px", "width": "120px", "height": "135px"}
+                if (tmp["fd"].clickables[11].unlocked) return {"border-radius": "0px 0px 0px 15px",'width': '120px', 'height': '135px'}
+                else return {"border-radius": "15px 0px 0px 15px", "width": "120px", "height": "135px"}
             },
         },
         12: {
@@ -209,7 +223,7 @@ addLayer("fd", {
         },
         13: {
             title: "4D-Upgrade 1.3",
-            description: "<b>Unlock</b> Buy Max button for Boost 'w, x, y, & z' Variable and <b>Keep</b> all currently unlocked 'U' and Res-Upgrades",
+            description: "<b>Keep</b> all currently unlocked 'U' and Res-Upgrades",
             cost: new Decimal(65536),
             currencyDisplayName: "Distortion",
             currencyInternalName: "points",
@@ -232,7 +246,7 @@ addLayer("fd", {
         15: {
             title: "4D-Upgrade 1.5",
             description: "<b>---</b>",
-            cost: new Decimal(2).pow(64),
+            cost: new Decimal(2).pow(96),
             currencyDisplayName: "Distortion",
             currencyInternalName: "points",
             currencyLayer: "fd",
@@ -244,7 +258,8 @@ addLayer("fd", {
                 return "<b>x" + format(upgradeEffect("fd", 15))
             },
             style(){ 
-                return {"border-radius": "0px 15px 15px 0px", "width": "120px", "height": "135px"}
+                if (tmp["fd"].clickables[11].unlocked) return {"border-radius": "0px 0px 15px 0px",'width': '120px', 'height': '135px'}
+                else return {"border-radius": "0px 15px 15px 0px", "width": "120px", "height": "135px"}
             },
         },
     },
@@ -256,9 +271,9 @@ addLayer("fd", {
     getResetGain() {
         gain = new Decimal(0)
         if (inChallenge("fd",11)) gain = gain.add(getPointGen().sub(1).pow(0.5).div(100))
-        if (gain.gte(new Decimal(2).pow(32))) {
-            gain = new Decimal(2).pow(32)
-            gain = gain.mul(getPointGen().sub(1).pow(0.5).div(100).div(new Decimal(2).pow(32)).add(2).log10().div(new Decimal(2).log10()))
+        if (gain.gte(new Decimal(2).pow(32).mul(infMs2()))) {
+            gain = new Decimal(2).pow(32).mul(infMs2())
+            gain = gain.mul(getPointGen().sub(1).pow(0.5).div(100).div(new Decimal(2).pow(32).mul(infMs2())).add(2).log10().div(new Decimal(2).log10()))
         }
         return gain
     },
@@ -276,6 +291,12 @@ addLayer("fd", {
     displayRow: 2,
     branches: ["tm"],
     layerShown(){return hasChallenge("inf",32)},
+    doReset(resettingLayer) {
+        let keep=[];
+        if (layers[resettingLayer].row > this.row) {layerDataReset("fd", keep);
+        if (hasMilestone("inf",3)) player[this.layer].upgrades = player[this.layer].upgrades.concat([13]);
+        }
+    },
 })
 
 function fdboost() {

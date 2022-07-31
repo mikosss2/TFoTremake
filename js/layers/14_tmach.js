@@ -69,7 +69,10 @@ addLayer("tm", {
         11: {
             title() {return "Time Fragments Generator"},
             cost(x) { return new Decimal(40960).mul(new Decimal(tmbuy11cm()).pow(x))},
-            display() { return "Increase Time Machine Fragments gained <br> Currently:<b> +" + format(tmp.tm.buyables[11].effect) + " </b> <br> (bought:" + format(getBuyableAmount("tm", 11)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("tm", 11))) + " Knowledge"},
+            display() { 
+                if (hasMilestone("inf",3)) return "Increase Time Machine Fragments gained <br> Currently:<b> +" + format(tmp.tm.buyables[11].effect) + " </b> <br> (bought:" + format(getBuyableAmount("tm", 11)) + " + " + format(player["inf"].ms3amt) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("tm", 11))) + " Knowledge"
+                else return "Increase Time Machine Fragments gained <br> Currently:<b> +" + format(tmp.tm.buyables[11].effect) + " </b> <br> (bought:" + format(getBuyableAmount("tm", 11)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("tm", 11))) + " Knowledge"
+            },
             canAfford() { return player["res"].points.gte(this.cost()) },
             buy() {
                 if (!hasChallenge("inf",31)) player["res"].points = player["res"].points.sub(this.cost())
@@ -84,6 +87,7 @@ addLayer("tm", {
             effect() { 
                 eff = new Decimal(0)
                 eff = eff.add(getBuyableAmount("tm",11))
+                if (hasMilestone("inf",3)) eff = eff.add(player["inf"].ms3amt)
                 eff = eff.pow(new Decimal(2).add(buyableEffect("tm",21)))
                 return eff
             },
@@ -98,7 +102,10 @@ addLayer("tm", {
         12: {
             title() {return "Warp Time"},
             cost(x) { return new Decimal(1).mul(new Decimal(tmbuy12cm()).pow(x))},
-            display() { return "Speed up time <br> Currently: <b>+" + format(tmp.tm.buyables[12].effect) + " </b> <br> (bought:" + format(getBuyableAmount("tm", 12)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("tm", 12))) + " Time Fragments"},
+            display() { 
+                if (hasMilestone("inf",1)) return "Speed up time <br> Currently: <b>+" + format(tmp.tm.buyables[12].effect) + " </b> <br> (bought:" + format(getBuyableAmount("tm", 12)) + " + " + format(player["inf"].ms1amt) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("tm", 12))) + " Time Fragments"
+                else return "Speed up time <br> Currently: <b>+" + format(tmp.tm.buyables[12].effect) + " </b> <br> (bought:" + format(getBuyableAmount("tm", 12)) + ")" + "<br> Cost: <b style='color:red;'>" + format(this.cost(getBuyableAmount("tm", 12))) + " Time Fragments"
+            },
             canAfford() { return player["tm"].points.gte(this.cost()) },
             buy() {
                 if (!hasChallenge("inf",31)) player["tm"].points = player["tm"].points.sub(this.cost())
@@ -113,6 +120,7 @@ addLayer("tm", {
             effect() { 
                 eff = new Decimal(0)
                 eff = eff.add(getBuyableAmount("tm", 12))
+                if (hasMilestone("inf",1)) eff = eff.add(player["inf"].ms1amt)
                 eff = eff.pow(new Decimal(1).add(buyableEffect("tm",22)))
                 return eff
             },
@@ -128,13 +136,18 @@ addLayer("tm", {
             title() {return "T.F.G.E."},
             cost(x) { return new Decimal(5).add(new Decimal(tmbuy21cm()).mul(x))},
             display() { 
-                if (hasUpgrade("p",22) && player["fd"].unlocked) return "Enhance <b>Time Fragments Generator</b> so you gain more Time Fragments <br> Currently: <b>^(2 + " + format(tmp.tm.buyables[21].effect) + ") </b> <br> (bought:" + format(getBuyableAmount("tm", 21)) + " + " + format(buyableEffect("fd", 11)) + ")" + "<br> Req: <b style='color:red;'> " + format(this.cost(getBuyableAmount("tm", 21))) + " Time Fragments Generator"
+                if (hasUpgrade("p",22) && player["fd"].unlocked && buyableEffect("tm",21).gte(128)) return "Enhance <b>Time Fragments Generator</b> so you gain more Time Fragments <b style='color:red;'>Softcapped</b> <br> Currently: <b>^(2 + " + format(tmp.tm.buyables[21].effect) + ") </b> <br> (bought:" + format(getBuyableAmount("tm", 21)) + " + " + format(buyableEffect("fd", 11)) + ")" + "<br> Req: <b style='color:red;'> " + format(this.cost(getBuyableAmount("tm", 21))) + " Time Fragments Generator"
+                else if (player["fd"].unlocked && buyableEffect("tm",21).gte(128)) return "Enhance <b>Time Fragments Generator</b> so you gain more Time Fragments <b style='color:red;'>Softcapped</b> <br> Currently: <b>^(2 + " + format(tmp.tm.buyables[21].effect) + ") </b> <br> (bought:" + format(getBuyableAmount("tm", 21)) + " + " + format(buyableEffect("fd", 11)) + ")" + "<br><b>Warning: Resets f(t), Knowledge, Time Fragments, Time Fragment Generator, and Warp Time</b><br> Req: <b style='color:red;'> " + format(this.cost(getBuyableAmount("tm", 21))) + " Time Fragments Generator"
+                else if (hasUpgrade("p",22) && buyableEffect("tm",21).gte(128)) return "Enhance <b>Time Fragments Generator</b> so you gain more Time Fragments <b style='color:red;'>Softcapped</b> <br> Currently: <b>^(2 + " + format(tmp.tm.buyables[21].effect) + ") </b> <br> (bought:" + format(getBuyableAmount("tm", 21)) + ")" + "<br> Req: <b style='color:red;'> " + format(this.cost(getBuyableAmount("tm", 21))) + " Time Fragments Generator"
+                else if (buyableEffect("tm",21).gte(128)) return "Enhance <b>Time Fragments Generator</b> so you gain more Time Fragments <b style='color:red;'>Softcapped</b> <br> Currently: <b>^(2 + " + format(tmp.tm.buyables[21].effect) + ") </b> <br> (bought:" + format(getBuyableAmount("tm", 21)) + ")" + "<br><b>Warning: Resets f(t), Knowledge, Time Fragments, Time Fragment Generator, and Warp Time</b><br> Req: <b style='color:red;'> " + format(this.cost(getBuyableAmount("tm", 21))) + " Time Fragments Generator"
+                else if (hasUpgrade("p",22) && player["fd"].unlocked) return "Enhance <b>Time Fragments Generator</b> so you gain more Time Fragments <br> Currently: <b>^(2 + " + format(tmp.tm.buyables[21].effect) + ") </b> <br> (bought:" + format(getBuyableAmount("tm", 21)) + " + " + format(buyableEffect("fd", 11)) + ")" + "<br> Req: <b style='color:red;'> " + format(this.cost(getBuyableAmount("tm", 21))) + " Time Fragments Generator"
                 else if (player["fd"].unlocked) return "Enhance <b>Time Fragments Generator</b> so you gain more Time Fragments <br> Currently: <b>^(2 + " + format(tmp.tm.buyables[21].effect) + ") </b> <br> (bought:" + format(getBuyableAmount("tm", 21)) + " + " + format(buyableEffect("fd", 11)) + ")" + "<br><b>Warning: Resets f(t), Knowledge, Time Fragments, Time Fragment Generator, and Warp Time</b><br> Req: <b style='color:red;'> " + format(this.cost(getBuyableAmount("tm", 21))) + " Time Fragments Generator"
                 else if (hasUpgrade("p",22)) return "Enhance <b>Time Fragments Generator</b> so you gain more Time Fragments <br> Currently: <b>^(2 + " + format(tmp.tm.buyables[21].effect) + ") </b> <br> (bought:" + format(getBuyableAmount("tm", 21)) + ")" + "<br> Req: <b style='color:red;'> " + format(this.cost(getBuyableAmount("tm", 21))) + " Time Fragments Generator"
                 else return "Enhance <b>Time Fragments Generator</b> so you gain more Time Fragments <br> Currently: <b>^(2 + " + format(tmp.tm.buyables[21].effect) + ") </b> <br> (bought:" + format(getBuyableAmount("tm", 21)) + ")" + "<br><b>Warning: Resets f(t), Knowledge, Time Fragments, Time Fragment Generator, and Warp Time</b><br> Req: <b style='color:red;'> " + format(this.cost(getBuyableAmount("tm", 21))) + " Time Fragments Generator"
             },
             canAfford() { return getBuyableAmount("tm", 11).gte(this.cost()) },
             buy() {
+                setBuyableAmount("tm", 21, getBuyableAmount("tm", 21).add(1))
                 if (!hasUpgrade("p",22)) {
                     player["f"].points = player["f"].points.pow(0).add(1)
                     player["res"].points = player["res"].points.mul(0)
@@ -142,19 +155,18 @@ addLayer("tm", {
                     setBuyableAmount("tm", 11, getBuyableAmount("tm", 11).mul(0))
                     setBuyableAmount("tm", 12, getBuyableAmount("tm", 12).mul(0))
                 }
-                setBuyableAmount("tm", 21, getBuyableAmount("tm", 21).add(1))
             },
             buyMax() {
-                if (!hasUpgrade("p",22)) {
-                    player["f"].points = player["f"].points.pow(0).add(1)
-                    player["res"].points = player["res"].points.mul(0)
-                    player["tm"].points = player["tm"].points.mul(0)
-                    setBuyableAmount("tm", 11, getBuyableAmount("tm", 11).mul(0))
-                    setBuyableAmount("tm", 12, getBuyableAmount("tm", 12).mul(0))
-                }
                 max = new Decimal(0)
                 max = max.add((Decimal.floor(getBuyableAmount("tm", 11).sub(this.cost()).div(tmbuy21cm()))).add(1))
                 setBuyableAmount("tm", 21, getBuyableAmount("tm", 21).add(max))
+                if (!hasUpgrade("p",22)) {
+                    player["f"].points = player["f"].points.pow(0).add(1)
+                    player["res"].points = player["res"].points.mul(0)
+                    player["tm"].points = player["tm"].points.mul(0)
+                    setBuyableAmount("tm", 11, getBuyableAmount("tm", 11).mul(0))
+                    setBuyableAmount("tm", 12, getBuyableAmount("tm", 12).mul(0))
+                }
             },
             effect() { 
                 pow = new Decimal(0.85)
@@ -167,6 +179,10 @@ addLayer("tm", {
 
                 eff = new Decimal(0)
                 eff = eff.add(amt.pow(pow))
+                if (eff.gte(128)) {
+                    eff = new Decimal(128)
+                    eff = eff.add(amt.pow(pow).sub(127).pow(0.85).sub(1))
+                }
                 return eff
             },
             style(){ 
@@ -192,6 +208,7 @@ addLayer("tm", {
             },
             canAfford() { return getBuyableAmount("tm", 12).gte(this.cost()) },
             buy() {
+                setBuyableAmount("tm", 22, getBuyableAmount("tm", 22).add(1))
                 if (!hasUpgrade("p",22)) {
                     player["f"].points = player["f"].points.pow(0).add(1)
                     player["res"].points = player["res"].points.mul(0)
@@ -199,19 +216,18 @@ addLayer("tm", {
                     setBuyableAmount("tm", 11, getBuyableAmount("tm", 11).mul(0))
                     setBuyableAmount("tm", 12, getBuyableAmount("tm", 12).mul(0))
                 }
-                setBuyableAmount("tm", 22, getBuyableAmount("tm", 22).add(1))
             },
             buyMax() {
-                if (!hasUpgrade("p",22)) {
-                    player["f"].points = player["f"].points.pow(0).add(1)
-                    player["res"].points = player["res"].points.mul(0)
-                    player["tm"].points = player["tm"].points.mul(0)
-                    setBuyableAmount("tm", 11, getBuyableAmount("tm", 11).mul(0))
-                    setBuyableAmount("tm", 12, getBuyableAmount("tm", 12).mul(0))
-                }
                 max = new Decimal(0)
                 max = max.add((Decimal.floor(getBuyableAmount("tm", 12).sub(this.cost()).div(tmbuy22cm()))).add(1))
                 setBuyableAmount("tm", 22, getBuyableAmount("tm", 22).add(max))
+                if (!hasUpgrade("p",22)) {
+                    player["f"].points = player["f"].points.pow(0).add(1)
+                    player["res"].points = player["res"].points.mul(0)
+                    player["tm"].points = player["tm"].points.mul(0)
+                    setBuyableAmount("tm", 11, getBuyableAmount("tm", 11).mul(0))
+                    setBuyableAmount("tm", 12, getBuyableAmount("tm", 12).mul(0))
+                }
             },
             effect() { 
                 cap = new Decimal(0.75)

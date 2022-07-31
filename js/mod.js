@@ -17,6 +17,7 @@ let modInfo = {
 		"layers/22_pupg.js",
 		"layers/23_inf.js",
 		"layers/24_4d.js",
+		"layers/25_st.js",
 		"tree.js"
 	],
 
@@ -28,28 +29,35 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.3.24",
-	name: "4th Dimension Update",
+	num: "1.4.n",
+	name: "Infinity Update",
 }
 
 let changelog = `<h1>Changelog:</h1><br><br>
-<h3 style="background-image: linear-gradient(60deg, #FF7F7F, #797EF6);-webkit-background-clip: text;color: transparent;">v1.3.24</h3><br>
+<h3 style="background-image: linear-gradient(60deg, #970439, #FFFFFF, #BF40BF);-webkit-background-clip: text;color: transparent;">v1.4.n</h3><br>
+	- Added stuffs about the infinity<br>
+	- Added more stuffs about infinity <br> (too lazy to state them...)<br><br>
+<h3 style="background-image: linear-gradient(60deg, #970439, #FFFFFF, #BF40BF);-webkit-background-clip: text;color: transparent;">v1.4.0</h3><br>
+	- Added (real) Infinity<br><br>
+<h2 style="background-image: linear-gradient(60deg, #970439, #FFFFFF, #BF40BF);-webkit-background-clip: text;color: transparent;">Infinity Update</h2><br><br>
+<h3 style="background-image: radial-gradient(#FF7F7F, #797EF6);-webkit-background-clip: text;color: transparent;">v1.3.24</h3><br>
 	- Automation comes now after Prestige<br><br>
-<h3 style="background-image: linear-gradient(60deg, #FF7F7F, #797EF6);-webkit-background-clip: text;color: transparent;">v1.3.19</h3><br>
+<h3 style="background-image: radial-gradient(#FF7F7F, #797EF6);-webkit-background-clip: text;color: transparent;">v1.3.19</h3><br>
 	- Increase time requirement for Challenge 'Break Infinity I' <br> and 'Heavy Machines & Break Infinity II'<br><br>
-<h3 style="background-image: linear-gradient(60deg, #FF7F7F, #797EF6);-webkit-background-clip: text;color: transparent;">v1.3.17</h3><br>
+<h3 style="background-image: radial-gradient(#FF7F7F, #797EF6);-webkit-background-clip: text;color: transparent;">v1.3.17</h3><br>
 	- Endgame is currently infinite time<br>
 	- Completed 8 achievements<br>
 	- Added 4 upgrades<br>
 	- Added 4 buyables<br><br>
-<h3 style="background-image: linear-gradient(60deg, #FF7F7F, #797EF6);-webkit-background-clip: text;color: transparent;">v1.3.0</h3><br>
+<h3 style="background-image: radial-gradient(#FF7F7F, #797EF6);-webkit-background-clip: text;color: transparent;">v1.3.0</h3><br>
 	- Added 4th Dimension<br><br>
-<h2 style="background-image: linear-gradient(60deg, #FF7F7F, #797EF6);-webkit-background-clip: text;color: transparent;">4th Dimension Update</h2><br><br>
+<h2 style="background-image: radial-gradient(#FF7F7F, #797EF6);-webkit-background-clip: text;color: transparent;">4th Dimension Update</h2><br><br>
 <h3 style="color: #FFFFFF">v1.2.29</h3><br>
 	- Added 8 Automation and Break-infinity Challenges<br>
 	- Added 21 Automation options<br><br>
 <h3 style="color: #FFFFFF">v1.2.0</h3><br>
-	- Added Infinity<br><br>
+	- Added Infinity<br>
+	- Added Automation<br><br>
 <h2 style="color: #FFFFFF">Automation Update</h2><br><br>
 <h3 style="color: #970439">v1.1.49</h3><br>
 	- Fixed interface<br><br>
@@ -126,7 +134,7 @@ function getPointGen() {
 
 	let gain = new Decimal(1)
 	gain = gain.add(buyableEffect("tm",12))
-	if (gain.gte(new Decimal(2).pow(1024))) gain = new Decimal(2).pow(1024)
+	if (gain.gte(infinityCap())) gain = new Decimal(infinityCap())
 	return gain
 }
 
@@ -140,7 +148,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal(2).pow(1024))
+	return hasMilestone("inf",5)
 }
 
 
