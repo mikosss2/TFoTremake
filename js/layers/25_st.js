@@ -59,8 +59,8 @@ addLayer("st", {
                 setBuyableAmount("st", 11, getBuyableAmount("st", 11).add(1))
             },
             buyMax() {
-                getMax(player["f"].points.abs(), this.cost(), new Decimal(10).pow(2000))
-                subCost(new Decimal(10).pow(2000), getBuyableAmount("st", 11), new Decimal(10).pow(2000))
+                getMax(player["f"].points.abs(), this.cost(), new Decimal(10).pow(250))
+                subCost(new Decimal(10).pow(250), getBuyableAmount("st", 11), new Decimal(10).pow(2000))
                 player["st"].points = player["st"].points.add(max)
                 setBuyableAmount("st", 11, getBuyableAmount("st", 11).add(new Decimal(max)))
             },
