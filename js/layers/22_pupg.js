@@ -14,6 +14,9 @@ addLayer("pu", {
     symbol: "pU",
     color: "#970439", 
     nodeStyle() {
+        var style = {"margin": "15px", "background": "#970439", "background-origin": "border-box"}
+        if (options.nodeStyle) style["border-radius"] = "15px 15px 15px 15px";
+        return style
     },
     resource: "pU",
     baseResource: "g(t)",

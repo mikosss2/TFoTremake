@@ -10,6 +10,11 @@ addLayer("A", {
     }},
     color: "#FFE4B5",
     row: "side",
+    nodeStyle() {
+        var style = {}
+        if (options.nodeStyle) style["border-radius"] = "15px 15px 15px 15px";
+        return style
+    },
     layerShown() {return true}, 
     tooltip() { // Optional, tooltip displays when the layer is locked
         return ("Achievements")
@@ -146,9 +151,9 @@ addLayer("A", {
             unlocked() {return player["f"].best.gte(10000) || hasAchievement("A",21)},
         },
         28: {
-            name: "---",
-            done() { return false },
-            tooltip: "<b>---</b><br><br> ---",
+            name: "a thousand",
+            done() { return player['u'].points.gte(new Decimal(10).pow(1000)) },
+            tooltip: "<b>a filler</b><br><br> get 1e1000 blah blah blah",
             style(){ 
                 if (tmp["A"].achievements[38].unlocked) return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
                 else return {"border-radius": "0px 0px 15px 0px",'height': '64px', 'width': '64px'}
@@ -211,9 +216,9 @@ addLayer("A", {
             unlocked() {return hasUpgrade("u",14) || hasAchievement("A",31)},
         },
         37: {
-            name: "---",
-            done() { return false },
-            tooltip: "<b>---</b><br><br> ---",
+            name: "TEN???",
+            done() { return buyableEffect("res",11).gte(1e10) },
+            tooltip: "<b>1e10</b><br><br> How is that possible, 1e10 base?...",
             style(){ 
                 return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
             },
@@ -406,9 +411,9 @@ addLayer("A", {
             unlocked() {return hasUpgrade("p",13) || hasAchievement("A",61)},
         },
         64: {
-            name: "---",
-            done() { return false },
-            tooltip: "<b>---</b><br><br> ---",
+            name: "A (2) HUNDRED ??? <br> part 2",
+            done() { return player['pu'].points.gte(new Decimal(10).pow(200)) },
+            tooltip: "<b>sheesh part 2</b><br><br> Have 1e200 'pU' Variable value",
             style(){ 
                 return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
             },
@@ -491,9 +496,9 @@ addLayer("A", {
         75: {
             name: "From the top",
             done() { return player["inf"].points.gte(1) },
-            tooltip: "<b>AGAIN?????</b><br><br> Have atleast 1 ∞",
+            tooltip: "<b>AGAIN?????</b><br><br> Have atleast 1 ∞<br><br> Reward: Keep 4-D Upgrade 1.3 and Pres-Upgrade 2.2",
             style(){ 
-                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
+                return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px', "color": "#680CA6"}
             },
             unlocked() {return player["f"].points.gte(new Decimal(2).pow(1024)) || hasAchievement("A",71)},
         },
@@ -609,9 +614,9 @@ addLayer("A", {
             unlocked() {return hasMilestone("inf",5) || hasAchievement("A",91)},
         },
         92: {
-            name: "---",
-            done() { return false },
-            tooltip: "<b>---</b><br><br> ---",
+            name: "The Boom",
+            done() { return hasUpgrade("st",41) && hasUpgrade("st",42) && hasUpgrade("st",43) },
+            tooltip: "<b>Inflation go brrrrrr</b><br><br> What is happening?!?!?!?!",
             style(){ 
                 return {"border-radius": "0px 0px 0px 0px",'height': '64px', 'width': '64px'}
             },

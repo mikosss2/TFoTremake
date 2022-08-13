@@ -22,8 +22,10 @@ addLayer("tm", {
     symbol: "TM",
     color: "#D0B49F", 
     nodeStyle() {
-        if (inChallenge("fd",11)) return {"background": "radial-gradient(#D0B49F, #797EF6)", "background-origin": "border-box"}
-        else return {"background": "#D0B49F", "background-origin": "border-box"}
+        var style = {"margin": "15px", "background": "#D0B49F", "background-origin": "border-box"}
+        if (inChallenge("fd",11)) style["background"] = "radial-gradient(#D0B49F, #797EF6)";
+        if (options.nodeStyle) style["border-radius"] = "15px 15px 15px 15px";
+        return style
     },
     resource: "Time Fragments",
     baseResource: "Knowledge",
@@ -172,6 +174,7 @@ addLayer("tm", {
                 pow = new Decimal(0.85)
                 if (hasUpgrade("p",14)) pow = new Decimal(0.88)
                 if (hasUpgrade("fd",12)) pow = new Decimal(0.90)
+                if (hasUpgrade("st",43)) pow = new Decimal(0.95)
                 
                 amt = new Decimal(0)
                 amt = amt.add(getBuyableAmount("tm", 21))
@@ -304,23 +307,27 @@ addLayer("tm", {
 function tmbuy11cm() {
     cm = new Decimal(2)
     if (hasUpgrade("pu",21)) cm = new Decimal(1.85)
+    if (hasUpgrade("st",33)) cm = new Decimal(1.75)
     return cm
 }
 
 function tmbuy12cm() {
     cm = new Decimal(2)
     if (hasUpgrade("p",21)) cm = new Decimal(1.85)
+    if (hasUpgrade("st",33)) cm = new Decimal(1.75)
     return cm
 }
 
 function tmbuy21cm() {
     cm = new Decimal(5)
     if (hasUpgrade("p",24)) cm = new Decimal(13/3)
+    if (hasUpgrade("st",23)) cm = new Decimal(4)
     return cm
 }
 
 function tmbuy22cm() {
     cm = new Decimal(5)
     if (hasUpgrade("p",24)) cm = new Decimal(13/3)
+    if (hasUpgrade("st",23)) cm = new Decimal(4)
     return cm
 }

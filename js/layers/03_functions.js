@@ -57,16 +57,18 @@ function layer1reset() {
     let keep=[];
     {layerDataReset("f", keep);}
     {layerDataReset("u", keep);
-    if (hasUpgrade("fd",13)) player["u"].upgrades = player["u"].upgrades.concat([11,12,13,14,15]);
-    if (hasUpgrade("fd",13)) player["u"].upgrades = player["u"].upgrades.concat([21,22,23,24,25]);
-    if (hasUpgrade("fd",13)) player["u"].upgrades = player["u"].upgrades.concat([31,32,33,34,35]);
-    if (hasAchievement("A", 26)) player["u"].upgrades = player["u"].upgrades.concat([35]);
-    if (hasAchievement("A", 21)) player["u"].upgrades = player["u"].upgrades.concat([21]);
-    if (hasAchievement("A", 21)) player["u"].upgrades = player["u"].upgrades.concat([14]);}
+        if (hasUpgrade("fd",13)) player["u"].upgrades = player["u"].upgrades.concat([11,12,13,14,15]);
+        if (hasUpgrade("fd",13)) player["u"].upgrades = player["u"].upgrades.concat([21,22,23,24,25]);
+        if (hasUpgrade("fd",13)) player["u"].upgrades = player["u"].upgrades.concat([31,32,33,34,35]);
+        if (hasAchievement("A", 26)) player["u"].upgrades = player["u"].upgrades.concat([35]);
+        if (hasAchievement("A", 21)) player["u"].upgrades = player["u"].upgrades.concat([21]);
+        if (hasAchievement("A", 21)) player["u"].upgrades = player["u"].upgrades.concat([14]);
+    }
     {layerDataReset("res", keep);
-    if (hasUpgrade("fd",13)) player["res"].upgrades = player["res"].upgrades.concat([11,12,13,14,15]);
-    if (hasUpgrade("fd",13)) player["res"].upgrades = player["res"].upgrades.concat([21,22,23,24,25]);
-    if (hasAchievement("A", 31)) player["res"].upgrades = player["res"].upgrades.concat([15]);}
+        if (hasUpgrade("fd",13)) player["res"].upgrades = player["res"].upgrades.concat([11,12,13,14,15]);
+        if (hasUpgrade("fd",13)) player["res"].upgrades = player["res"].upgrades.concat([21,22,23,24,25]);
+        if (hasAchievement("A", 31)) player["res"].upgrades = player["res"].upgrades.concat([15]);
+    }
     {layerDataReset("tm", keep);}
     player["pu"].points = player["pu"].points.pow(0)
     setBuyableAmount("g", 11, getBuyableAmount("g", 11).mul(0))
@@ -82,15 +84,19 @@ function layer1reset() {
 function layer2reset() {
     let keep=[];
     {layerDataReset("p", keep);
-    if (hasMilestone("inf", 3)) player["p"].upgrades = player["p"].upgrades.concat([22]);
-    if (hasAchievement("A", 51)) player["p"].upgrades = player["p"].upgrades.concat([23]);
-    if (hasAchievement("A", 51)) player["p"].upgrades = player["p"].upgrades.concat([15]);
-    if (hasAchievement("A", 51)) player["p"].upgrades = player["p"].upgrades.concat([13]);}
+        if (hasAchievement("A",75)) player["p"].upgrades = player["p"].upgrades.concat([22]);
+        if (hasAchievement("A", 51)) player["p"].upgrades = player["p"].upgrades.concat([23]);
+        if (hasAchievement("A", 51)) player["p"].upgrades = player["p"].upgrades.concat([15]);
+        if (hasAchievement("A", 51)) player["p"].upgrades = player["p"].upgrades.concat([13]);
+    }
     {layerDataReset("g", keep);}
     {layerDataReset("pu", keep);
-    if (hasAchievement("A", 61)) player["pu"].upgrades = player["pu"].upgrades.concat([23]);
-    if (hasAchievement("A", 61)) player["pu"].upgrades = player["pu"].upgrades.concat([14]);}
+        if (hasAchievement("A", 61)) player["pu"].upgrades = player["pu"].upgrades.concat([23]);
+        if (hasAchievement("A", 61)) player["pu"].upgrades = player["pu"].upgrades.concat([14]);
+    }
     {layerDataReset("fd", keep);
-    if (hasMilestone("inf",3)) player["fd"].upgrades = player["fd"].upgrades.concat([13]);}
+        if (hasAchievement("A",75)) player["fd"].upgrades = player["fd"].upgrades.concat([13]);
+    }
+    {layerDataReset("st", keep);}
     layer1reset()
 }

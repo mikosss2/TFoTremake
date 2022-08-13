@@ -39,8 +39,10 @@ addLayer("g", {
     symbol: "g",
     color: "#BF40BF", 
     nodeStyle() {
-        if (inChallenge("fd",11)) return {"background": "radial-gradient(#BF40BF, #797EF6)", "background-origin": "border-box"}
-        else return {"background": "#BF40BF", "background-origin": "border-box"}
+        var style = {"margin": "15px", "background": "#BF40BF", "background-origin": "border-box"}
+        if (inChallenge("fd",11)) style["background"] = "radial-gradient(#BF40BF, #797EF6)";
+        if (options.nodeStyle) style["border-radius"] = "15px 15px 15px 15px";
+        return style
     },
     resource: "g(t)",
     baseResource: "PP",

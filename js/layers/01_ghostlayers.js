@@ -3,6 +3,7 @@ addLayer("ln03", {
     symbol: "", 
     position: 3,
     canclick(){return false},
+    nodeStyle() { return {"margin": "15px",} },
     row: 0,
     color: "#000000",
     layerShown() {
@@ -16,6 +17,7 @@ addLayer("ln04", {
     symbol: "", 
     position: 4,
     canclick(){return false},
+    nodeStyle() { return {"margin": "15px",} },
     row: 0,
     color: "#000000",
     layerShown() {
@@ -29,6 +31,7 @@ addLayer("ln13", {
     symbol: "", 
     position: 3,
     canclick(){return false},
+    nodeStyle() { return {"margin": "15px",} },
     row: 1,
     color: "#000000",
     layerShown() {
@@ -42,6 +45,7 @@ addLayer("ln24", {
     symbol: "", 
     position: 4,
     canclick(){return false},
+    nodeStyle() { return {"margin": "15px",} },
     row: 2,
     color: "#000000",
     layerShown() {
@@ -55,6 +59,7 @@ addLayer("ln25", {
     symbol: "", 
     position: 5,
     canclick(){return false},
+    nodeStyle() { return {"margin": "15px",} },
     row: 2,
     color: "#000000",
     layerShown() {

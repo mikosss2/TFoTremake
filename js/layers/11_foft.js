@@ -44,8 +44,10 @@ addLayer("f", {
     symbol: "f",
     color: "#63C5DA", 
     nodeStyle() {
-        if (inChallenge("fd",11)) return {"background": "radial-gradient(#63C5DA, #797EF6)", "background-origin": "border-box"}
-        else return {"background": "#63C5DA", "background-origin": "border-box"}
+        var style = {"margin": "15px", "background": "#63C5DA", "background-origin": "border-box"}
+        if (inChallenge("fd",11)) style["background"] = "radial-gradient(#63C5DA, #797EF6)";
+        if (options.nodeStyle) style["border-radius"] = "15px 15px 15px 15px";
+        return style
     },
     resource: "f(t)",
     baseResource: "time",
@@ -245,6 +247,7 @@ addLayer("f", {
 function fbuy11cm() {
     cm = new Decimal(1.5)
     if (hasUpgrade("u",33)) cm = new Decimal(1.425)
+    if (hasUpgrade("st",11)) cm = new Decimal(1.35)
     if (inChallenge("inf",21) || inChallenge("inf",32)) cm = cm.mul(16)
     return cm
 }
@@ -252,6 +255,7 @@ function fbuy11cm() {
 function fbuy21cm() {
     cm = new Decimal(1.5)
     if (hasUpgrade("u",33)) cm = new Decimal(1.425)
+    if (hasUpgrade("st",11)) cm = new Decimal(1.35)
     if (inChallenge("inf",21) || inChallenge("inf",32)) cm = cm.mul(16)
     return cm
 }
@@ -259,6 +263,7 @@ function fbuy21cm() {
 function fbuy31cm() {
     cm = new Decimal(1.5)
     if (hasUpgrade("u",33)) cm = new Decimal(1.425)
+    if (hasUpgrade("st",11)) cm = new Decimal(1.35)
     if (inChallenge("inf",21) || inChallenge("inf",32)) cm = cm.mul(16)
     return cm
 }
@@ -266,6 +271,7 @@ function fbuy31cm() {
 function fbuy41cm() {
     cm = new Decimal(1.5)
     if (hasUpgrade("u",33)) cm = new Decimal(1.425)
+    if (hasUpgrade("st",11)) cm = new Decimal(1.35)
     if (inChallenge("inf",21) || inChallenge("inf",32)) cm = cm.mul(16)
     return cm
 }

@@ -18,6 +18,7 @@ let modInfo = {
 		"layers/23_inf.js",
 		"layers/24_4d.js",
 		"layers/25_st.js",
+		"layers/30_abd.js",
 		"tree.js"
 	],
 
@@ -29,11 +30,17 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.4.n",
-	name: "Infinity Update",
+	num: "1.5.n",
+	name: "Study Tree Update",
 }
 
 let changelog = `<h1>Changelog:</h1><br><br>
+<h3 style="background-image: radial-gradient(#FFE77B, #234F1E);-webkit-background-clip: text;color: transparent;">v1.5.n</h3><br>
+	- Added stuffs about the study tree<br>
+	- Added more stuffs about study tree and fixed other stuffs <br> (again, too lazy to state them...)<br><br>
+<h3 style="background-image: radial-gradient(#FFE77B, #234F1E);-webkit-background-clip: text;color: transparent;">v1.5.0</h3><br>
+	- Added Study Tree<br><br>
+<h2 style="background-image: radial-gradient(#FFE77B, #234F1E);-webkit-background-clip: text;color: transparent;">Study Tree Update</h2><br><br>
 <h3 style="background-image: linear-gradient(60deg, #970439, #FFFFFF, #BF40BF);-webkit-background-clip: text;color: transparent;">v1.4.n</h3><br>
 	- Added stuffs about the infinity<br>
 	- Added more stuffs about infinity <br> (too lazy to state them...)<br><br>
@@ -148,7 +155,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return hasMilestone("inf",5)
+	return hasUpgrade("st",51)
 }
 
 

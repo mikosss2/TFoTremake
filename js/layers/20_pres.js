@@ -32,6 +32,11 @@ addLayer("p", {
         unlocked: true,
 		points: new Decimal(0),
     }},
+    nodeStyle() {
+        var style = {"margin": "15px", "background": "#BF40BF", "background-origin": "border-box"}
+        if (options.nodeStyle) style["border-radius"] = "15px 15px 15px 15px";
+        return style 
+    },
     color: "#BF40BF",
     requires: new Decimal(1e21), // Can be a function that takes requirement increases into account
     resource: "PP", // Name of prestige currency
@@ -268,7 +273,7 @@ addLayer("p", {
     doReset(resettingLayer) {
         let keep=[];
         if (layers[resettingLayer].row > this.row) {layerDataReset("p", keep);
-        if (hasMilestone("inf", 3)) player[this.layer].upgrades = player[this.layer].upgrades.concat([22]);
+        if (hasAchievement("A",75)) player[this.layer].upgrades = player[this.layer].upgrades.concat([22]);
         if (hasAchievement("A", 51)) player[this.layer].upgrades = player[this.layer].upgrades.concat([23]);
         if (hasAchievement("A", 51)) player[this.layer].upgrades = player[this.layer].upgrades.concat([15]);
         if (hasAchievement("A", 51)) player[this.layer].upgrades = player[this.layer].upgrades.concat([13]);

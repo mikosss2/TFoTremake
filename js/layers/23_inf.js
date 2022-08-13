@@ -56,8 +56,9 @@ addLayer("inf", {
     position: 2,
     color: "#FFFFFF",
     nodeStyle() {
-        return {"background": "linear-gradient(60deg, #970439, #FFFFFF, #BF40BF)",
-        "background-origin": "border-box",}
+        var style = {"margin": "15px", "background": "linear-gradient(60deg, #970439, #FFFFFF, #BF40BF)", "background-origin": "border-box"}
+        if (options.nodeStyle) style["border-radius"] = "15px 15px 15px 15px";
+        return style
     },
     tooltip() { 
         if (hasAchievement("A",74)) return (format(player["inf"].points) + " ∞")
@@ -100,7 +101,7 @@ addLayer("inf", {
         3: {
             requirementDescription: "3 ∞",
             effectDescription() {
-                if (player["inf"].ms3amt.gte(infMs3().mul(900))) return "Keep 4-D Upgrade 1.3 and Pres-Upgrade 2.2 (Works after this infinity) <br> Gain free Time Fragments Generator based on Additive Research Upgrade <br> You have +" + format(player["inf"].ms3amt) + " free Time Fragment Generator <b style='color: red;'> Maxed </b> <br> Currently: +" + format(infMs3()) + " free Time Fragment Generator / second"
+                if (player["inf"].ms3amt.gte(infMs3().mul(900))) return "Gain free Time Fragments Generator based on Additive Research Upgrade <br> You have +" + format(player["inf"].ms3amt) + " free Time Fragment Generator <b style='color: red;'> Maxed </b> <br> Currently: +" + format(infMs3()) + " free Time Fragment Generator / second"
                 else return "Keep 4-D Upgrade 1.3 and Pres-Upgrade 2.2 (Works after this infinity) <br> Gain free Time Fragments Generator based on Additive Research Upgrade <br> You have +" + format(player["inf"].ms3amt) + " free Time Fragment Generator <br> Currently: +" + format(infMs3()) + " free Time Fragment Generator / second"
             },
             done() { return player["inf"].points.gte(3) },
@@ -229,7 +230,7 @@ addLayer("inf", {
 
 function infinityCap() {
     pow = new Decimal(32)
-    if (hasMilestone("inf",5)) pow = new Decimal(128)
+    if (hasMilestone("inf",5)) pow = new Decimal(1024)
 
     cap = new Decimal(2).pow(1024)
     cap = cap.mul(new Decimal(2).pow(new Decimal(pow).mul(player["inf"].points.pow(2).add(player["inf"].points).div(2))))
@@ -255,7 +256,7 @@ function infMs2() {
 
 function infMs3() {
     eff = new Decimal(1)
-    eff = eff.mul(buyableEffect("res",11))
+    eff = eff.mul(getBuyableAmount("res",11).mul(0.01))
     eff = eff.add(1).pow(0.2).sub(1)
     return eff
 }

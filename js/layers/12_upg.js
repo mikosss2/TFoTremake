@@ -14,6 +14,9 @@ addLayer("u", {
     symbol: "U",
     color: "#FFE338", 
     nodeStyle() {
+        var style = {"margin": "15px", "background": "#FFE338", "background-origin": "border-box"}
+        if (options.nodeStyle) style["border-radius"] = "15px 15px 15px 15px";
+        return style
     },
     resource: "U",
     baseResource: "f(t)",
@@ -71,22 +74,26 @@ addLayer("u", {
             currencyInternalName: "points",
             currencyLayer: "f",
             effect() {
-                eff = new Decimal(1)
-                if (hasUpgrade("u",11)) eff = eff.mul(1.5)
-                if (hasUpgrade("u",12)) eff = eff.mul(1.5)
-                if (hasUpgrade("u",13)) eff = eff.mul(1.5)
-                if (hasUpgrade("u",14)) eff = eff.mul(1.5)
-                if (hasUpgrade("u",15)) eff = eff.mul(1.5)
-                if (hasUpgrade("u",21)) eff = eff.mul(1.5)
-                if (hasUpgrade("u",22)) eff = eff.mul(1.5)
-                if (hasUpgrade("u",23)) eff = eff.mul(1.5)
-                if (hasUpgrade("u",24)) eff = eff.mul(1.5)
-                if (hasUpgrade("u",25)) eff = eff.mul(1.5)
-                if (hasUpgrade("u",31)) eff = eff.mul(1.5)
-                if (hasUpgrade("u",32)) eff = eff.mul(1.5)
-                if (hasUpgrade("u",33)) eff = eff.mul(1.5)
-                if (hasUpgrade("u",34)) eff = eff.mul(1.5)
-                if (hasUpgrade("u",35)) eff = eff.mul(1.5)
+                pow = new Decimal(0)
+                if (hasUpgrade("u",11)) pow = pow.add(1)
+                if (hasUpgrade("u",12)) pow = pow.add(1)
+                if (hasUpgrade("u",13)) pow = pow.add(1)
+                if (hasUpgrade("u",14)) pow = pow.add(1)
+                if (hasUpgrade("u",15)) pow = pow.add(1)
+                if (hasUpgrade("u",21)) pow = pow.add(1)
+                if (hasUpgrade("u",22)) pow = pow.add(1)
+                if (hasUpgrade("u",23)) pow = pow.add(1)
+                if (hasUpgrade("u",24)) pow = pow.add(1)
+                if (hasUpgrade("u",25)) pow = pow.add(1)
+                if (hasUpgrade("u",31)) pow = pow.add(1)
+                if (hasUpgrade("u",32)) pow = pow.add(1)
+                if (hasUpgrade("u",33)) pow = pow.add(1)
+                if (hasUpgrade("u",34)) pow = pow.add(1)
+                if (hasUpgrade("u",35)) pow = pow.add(1)
+
+                eff = new Decimal(1.5)
+                if (hasUpgrade("st",41)) eff = eff.add(998.5)
+                eff = eff.pow(pow)
                 return eff
             },
             effectDisplay() {
@@ -99,7 +106,9 @@ addLayer("u", {
         13: {
             title: "'U' Upgrade 1.3",
             description() {
-                if (hasUpgrade("u",34) && hasUpgrade("u",31) && upgradeEffect("u", 13).gte(1048576)) return "<b>x1.015</b> 'U' value every 'a' Variable bought <br> Max = x1,048,576"
+                if (hasUpgrade("st",21) && hasUpgrade("u",34)) return "<b>x1.015</b> 'U' value every 'a' Variable bought <br> Cap = x1,048,576"
+                else if (hasUpgrade("st",21)) return "<b>x1.01</b> 'U' value every 'a' Variable bought <br> Cap = x1,048,576"
+                else if (hasUpgrade("u",34) && hasUpgrade("u",31) && upgradeEffect("u", 13).gte(1048576)) return "<b>x1.015</b> 'U' value every 'a' Variable bought <br> Max = x1,048,576"
                 else if (hasUpgrade("u",31) && upgradeEffect("u", 13).gte(1048576)) return "<b>x1.01</b> 'U' value every 'a' Variable bought <br> Max = x1,048,576"
                 else if (hasUpgrade("u",34) && hasUpgrade("u",31)) return "<b>x1.015</b> 'U' value every 'a' Variable bought <br> Cap = x32"
                 else if (hasUpgrade("u",34)) return "<b>x1.015</b> 'U' value every 'a' Variable bought <br> Max = x32"
@@ -119,7 +128,10 @@ addLayer("u", {
                 if (eff.gte(32)) {
                     eff = new Decimal(32)
                     if (hasUpgrade("u",31)) eff = eff.mul(new Decimal(base).pow(getBuyableAmount("f",11)).div(32).pow(0.75))
-                    if (eff.gte(1048576)) eff = new Decimal(1048576)
+                    if (eff.gte(1048576)) {
+                        eff = new Decimal(1048576)
+                        if (hasUpgrade("st",21)) eff = eff.mul(new Decimal(base).pow(getBuyableAmount("f",11)).div(32).pow(0.75).div(1048576).pow(0.55))
+                    }
                 }
                 return eff
             },
@@ -144,7 +156,9 @@ addLayer("u", {
         15: {
             title: "'U' Upgrade 1.5",
             description() {
-                if (hasUpgrade("u",34) && hasUpgrade("u",31) && upgradeEffect("u", 15).gte(1048576)) return "<b>x1.015</b> 'U' value every 'b' Variable bought <br> Max = x1,048,576"
+                if (hasUpgrade("st",21) && hasUpgrade("u",34)) return "<b>x1.015</b> 'U' value every 'b' Variable bought <br> Cap = x1,048,576"
+                else if (hasUpgrade("st",21)) return "<b>x1.01</b> 'U' value every 'b' Variable bought <br> Cap = x1,048,576"
+                else if (hasUpgrade("u",34) && hasUpgrade("u",31) && upgradeEffect("u", 15).gte(1048576)) return "<b>x1.015</b> 'U' value every 'b' Variable bought <br> Max = x1,048,576"
                 else if (hasUpgrade("u",31) && upgradeEffect("u", 15).gte(1048576)) return "<b>x1.01</b> 'U' value every 'b' Variable bought <br> Max = x1,048,576"
                 else if (hasUpgrade("u",34) && hasUpgrade("u",31)) return "<b>x1.015</b> 'U' value every 'b' Variable bought <br> Cap = x32"
                 else if (hasUpgrade("u",34)) return "<b>x1.015</b> 'U' value every 'b' Variable bought <br> Max = x32"
@@ -164,7 +178,10 @@ addLayer("u", {
                 if (eff.gte(32)) {
                     eff = new Decimal(32)
                     if (hasUpgrade("u",31)) eff = eff.mul(new Decimal(base).pow(getBuyableAmount("f",21)).div(32).pow(0.75))
-                    if (eff.gte(1048576)) eff = new Decimal(1048576)
+                    if (eff.gte(1048576)) {
+                        eff = new Decimal(1048576)
+                        if (hasUpgrade("st",21)) eff = eff.mul(new Decimal(base).pow(getBuyableAmount("f",21)).div(32).pow(0.75).div(1048576).pow(0.55))
+                    }
                 }
                 return eff
             },
@@ -191,7 +208,9 @@ addLayer("u", {
         22: {
             title: "'U' Upgrade 2.2",
             description() {
-                if (hasUpgrade("u",34) && hasUpgrade("u",31) && upgradeEffect("u", 22).gte(1048576)) return "<b>x1.015</b> 'U' value every 'c' Variable bought <br> Max = x1,048,576"
+                if (hasUpgrade("st",21) && hasUpgrade("u",34)) return "<b>x1.015</b> 'U' value every 'c' Variable bought <br> Cap = x1,048,576"
+                else if (hasUpgrade("st",21)) return "<b>x1.01</b> 'U' value every 'c' Variable bought <br> Cap = x1,048,576"
+                else if (hasUpgrade("u",34) && hasUpgrade("u",31) && upgradeEffect("u", 22).gte(1048576)) return "<b>x1.015</b> 'U' value every 'c' Variable bought <br> Max = x1,048,576"
                 else if (hasUpgrade("u",31) && upgradeEffect("u", 22).gte(1048576)) return "<b>x1.01</b> 'U' value every 'c' Variable bought <br> Max = x1,048,576"
                 else if (hasUpgrade("u",34) && hasUpgrade("u",31)) return "<b>x1.015</b> 'U' value every 'c' Variable bought <br> Cap = x32"
                 else if (hasUpgrade("u",34)) return "<b>x1.015</b> 'U' value every 'c' Variable bought <br> Max = x32"
@@ -211,7 +230,10 @@ addLayer("u", {
                 if (eff.gte(32)) {
                     eff = new Decimal(32)
                     if (hasUpgrade("u",31)) eff = eff.mul(new Decimal(base).pow(getBuyableAmount("f",31)).div(32).pow(0.75))
-                    if (eff.gte(1048576)) eff = new Decimal(1048576)
+                    if (eff.gte(1048576)) {
+                        eff = new Decimal(1048576)
+                        if (hasUpgrade("st",21)) eff = eff.mul(new Decimal(base).pow(getBuyableAmount("f",31)).div(32).pow(0.75).div(1048576).pow(0.55))
+                    }
                 }
                 return eff
             },
@@ -253,7 +275,9 @@ addLayer("u", {
         24: {
             title: "'U' Upgrade 2.4",
             description() {
-                if (hasUpgrade("u",34) && hasUpgrade("u",31) && upgradeEffect("u", 24).gte(1048576)) return "<b>x1.015</b> 'U' value every 'd' Variable bought <br> Max = x1,048,576"
+                if (hasUpgrade("st",21) && hasUpgrade("u",34)) return "<b>x1.015</b> 'U' value every 'd' Variable bought <br> Cap = x1,048,576"
+                else if (hasUpgrade("st",21)) return "<b>x1.01</b> 'U' value every 'd' Variable bought <br> Cap = x1,048,576"
+                else if (hasUpgrade("u",34) && hasUpgrade("u",31) && upgradeEffect("u", 24).gte(1048576)) return "<b>x1.015</b> 'U' value every 'd' Variable bought <br> Max = x1,048,576"
                 else if (hasUpgrade("u",31) && upgradeEffect("u", 24).gte(1048576)) return "<b>x1.01</b> 'U' value every 'd' Variable bought <br> Max = x1,048,576"
                 else if (hasUpgrade("u",34) && hasUpgrade("u",31)) return "<b>x1.015</b> 'U' value every 'd' Variable bought <br> Cap = x32"
                 else if (hasUpgrade("u",34)) return "<b>x1.015</b> 'U' value every 'd' Variable bought <br> Max = x32"
@@ -273,7 +297,10 @@ addLayer("u", {
                 if (eff.gte(32)) {
                     eff = new Decimal(32)
                     if (hasUpgrade("u",31)) eff = eff.mul(new Decimal(base).pow(getBuyableAmount("f",41)).div(32).pow(0.75))
-                    if (eff.gte(1048576)) eff = new Decimal(1048576)
+                    if (eff.gte(1048576)) {
+                        eff = new Decimal(1048576)
+                        if (hasUpgrade("st",21)) eff = eff.mul(new Decimal(base).pow(getBuyableAmount("f",41)).div(32).pow(0.75).div(1048576).pow(0.55))
+                    }
                 }
                 return eff
             },
@@ -379,6 +406,7 @@ addLayer("u", {
         if (inChallenge("inf",12) || inChallenge("inf",32)) pow = new Decimal(0.5)
         if (hasUpgrade("u",25)) pow = pow.add(tmp.u.upgrades[25].effect)
         if (hasUpgrade("u",32)) pow = pow.add(tmp.u.upgrades[32].effect)
+        if (hasUpgrade("st",31)) pow = pow.add(2/3)
 
         player["u"].points = new Decimal(1)
         if (hasUpgrade("u", 11)) player["u"].points = player["u"].points.mul(tmp.u.upgrades[11].effect)

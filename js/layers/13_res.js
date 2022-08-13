@@ -31,18 +31,67 @@ addLayer("res", {
         "Study Tree": {
             content:[
                 ["layer-proxy", ["st", [
+                    "main-display",
+                    ["clickable", 11],
+                    ["row", [["buyable", 11], ["buyable", 12], ["buyable", 13]]],
                 ]]],
-                ["display-text", function() { return "<h1><b>SEE YA NEXT UPDATE!!!</b>" },],
+                "blank",
+                ["microtabs", "studytree"],
             ],
             buttonStyle() { return {'border-color': '#FFE77B'}},
             unlocked() {return hasMilestone("inf",5)},
+        },
+    },
+    microtabs: {
+        studytree: {
+            "The Tree": {
+                buttonStyle() { return {'border-color': '#FFE77B'} },
+                content: [
+                    "blank",
+                    ["layer-proxy", ["st", [
+                        ["clickable", 21],
+                        "blank",
+                        "upgrades",
+                    ]]],           
+                    "blank",
+                ]
+            },
+            "Branch Info": {
+                buttonStyle() { return {'border-color': '#FFE77B'} },
+                content: [
+                    "blank",
+                    ["display-text", function() { return "<h3 style='color: #FFFFFF'> Normal Branch </h3>" },],
+                    ["display-text", function() { return "A normal branch does not affect other branches." },],
+                    "blank",
+                    ["display-text", function() { return "<h3 style='color: #89CFF0'> Cost Increase Branch </h3>" },],
+                    ["display-text", function() { return "Increases the cost of the adjacent branches." },],
+                    "blank",
+                    ["display-text", function() { return "<h3 style='color: #DC143C'> Requires Multiple Branch </h3>" },],
+                    ["display-text", function() { return "Upgrade can only be bought when all of <br> the multiple branches were bought." },],
+                    "blank",
+                ]
+            },
+            "Tree Build": {
+                buttonStyle() { return {'border-color': '#FFE77B'} },
+                content: [
+                    ["layer-proxy", ["st", [
+                    ]]],           
+                    "blank",
+                ]
+            },
         },
     },
     name: "Research", 
     symbol: "R",
     color: "#234F1E", 
     nodeStyle() {
-        if (hasMilestone("inf",5)) return {"background": "radial-gradient(#FFE77B, #234F1E)", "background-origin": "border-box"}
+        var style = {"margin": "15px", "background": "#234F1E", "background-origin": "border-box"}
+        if (hasMilestone("inf",5)) style["background"] = "radial-gradient(#FFE77B, #234F1E)";
+        if (options.nodeStyle) style["border-radius"] = "15px 15px 15px 15px";
+        return style
+    },
+    componentStyles: {
+        "microtabs"() { return {"width": "660px"} }
     },
     resource: "Knowledge",
     baseResource: "f(t)",
@@ -104,7 +153,7 @@ addLayer("res", {
     buyables: {
         11: {
             title() {return "Additive Research Upgrade <br> (+)"},
-            cost(x) { return new Decimal(100000000).mul(new Decimal(1.5).pow(x))},
+            cost(x) { return new Decimal(100000000).mul(new Decimal(resbuy11cm()).pow(x))},
             display() { return "Increase the value of knowlege gain additively <b>(+0.01)</b> <br> Currrently: <b>+" + format(tmp.res.buyables[11].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 11)) + ")" + "<br> Cost: <b style='color:red;'> f(t) = " + format(this.cost(getBuyableAmount("res", 11)))},
             canAfford() { return player["f"].points.gte(this.cost()) },
             buy() {
@@ -112,14 +161,15 @@ addLayer("res", {
                 setBuyableAmount("res", 11, getBuyableAmount("res", 11).add(1))
             },
             buyMax() {
-                getMax(player["f"].points.abs(), this.cost(), 1.5)
-                subCost(1.5, getBuyableAmount("res", 11), 100000000)
+                getMax(player["f"].points.abs(), this.cost(), resbuy11cm())
+                subCost(resbuy11cm(), getBuyableAmount("res", 11), 100000000)
                 if (!hasChallenge("inf",21)) player["f"].points = player["f"].points.sub(new Decimal(sub))
                 setBuyableAmount("res", 11, getBuyableAmount("res", 11).add(new Decimal(max)))
             },
             effect() { 
                 eff = new Decimal(0)
                 eff = eff.add(new Decimal(0.01).mul(getBuyableAmount("res", 11)))
+                if (hasUpgrade("st",22)) eff = eff.pow(upgradeEffect("st",22))
                 return eff
             },
             style(){ 
@@ -132,22 +182,22 @@ addLayer("res", {
         },
         12: {
             title() {return "Multiplicative Research Upgrade <br> (x)"},
-            cost(x) { return new Decimal(100000000).mul(new Decimal(1.5).pow(x))},
-            display() { return "Increase the value of knowlege gain multiplicatively <b>(x1.05)</b> Currrently: <b>x" + format(tmp.res.buyables[12].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 12)) + ")" + "<br> Cost: <b style='color:red;'> f(t) = " + format(this.cost(getBuyableAmount("res", 12)))},
+            cost(x) { return new Decimal(100000000).mul(new Decimal(resbuy12cm()).pow(x))},
+            display() {return "Increase the value of knowlege gain multiplicatively <b>(" + format(resbuy12base()) + ")</b> Currrently: <b>x" + format(tmp.res.buyables[12].effect) + " </b> <br> (bought:" + format(getBuyableAmount("res", 12)) + ")" + "<br> Cost: <b style='color:red;'> f(t) = " + format(this.cost(getBuyableAmount("res", 12)))},
             canAfford() { return player["f"].points.gte(this.cost()) },
             buy() {
                 if (!hasChallenge("inf",21)) player["f"].points = player["f"].points.sub(this.cost())
                 setBuyableAmount("res", 12, getBuyableAmount("res", 12).add(1))
             },
             buyMax() {
-                getMax(player["f"].points.abs(), this.cost(), 1.5)
-                subCost(1.5, getBuyableAmount("res", 12), 100000000)
+                getMax(player["f"].points.abs(), this.cost(), resbuy12cm())
+                subCost(resbuy12cm(), getBuyableAmount("res", 12), 100000000)
                 if (!hasChallenge("inf",21)) player["f"].points = player["f"].points.sub(new Decimal(sub))
                 setBuyableAmount("res", 12, getBuyableAmount("res", 12).add(new Decimal(max)))
             },
             effect() { 
                 eff = new Decimal(1)
-                eff = eff.mul(new Decimal(1.05).pow(getBuyableAmount("res", 12)))
+                eff = eff.mul(new Decimal(resbuy12base()).pow(getBuyableAmount("res", 12)))
                 return eff
             },
             style(){ 
@@ -606,3 +656,21 @@ addLayer("res", {
         }
     },
 })
+
+function resbuy11cm() {
+    cm = new Decimal(1.5)
+    if (hasUpgrade("st",32)) cm = new Decimal(1.4)
+    return cm
+}
+
+function resbuy12cm() {
+    cm = new Decimal(1.5)
+    if (hasUpgrade("st",32)) cm = new Decimal(1.4)
+    return cm
+}
+
+function resbuy12base() {
+    base = new Decimal(1.05)
+    if (hasUpgrade("st",42)) base = base.add(0.01)
+    return base
+}

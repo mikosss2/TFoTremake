@@ -90,6 +90,11 @@ addLayer("auto", {
     color: "#FFFFFF",
     row: "side",
     type: "none", 
+    nodeStyle() {
+        var style = {}
+        if (options.nodeStyle) style["border-radius"] = "15px 15px 15px 15px";
+        return style
+    },
     componentStyles: {
         "microtabs"() { return {"width": "660px"} }
     },

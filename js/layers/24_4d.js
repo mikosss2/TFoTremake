@@ -38,8 +38,10 @@ addLayer("fd", {
         else return "#FF7F7F"
     },
     nodeStyle() {
-        if (player.points.gte(new Decimal(10).pow(100)) || player["fd"].unlocked) return { background: "radial-gradient(#FF7F7F, #797EF6)", "background-origin": "border-box" }
-        else return { background: "radial-gradient(#BEBEBE, #696969)", "background-origin": "border-box" }
+        var style = {"margin": "15px", "background": "radial-gradient(#BEBEBE, #696969)", "background-origin": "border-box"}
+        if (player.points.gte(new Decimal(10).pow(100)) || player["fd"].unlocked) style["background"] = "radial-gradient(#FF7F7F, #797EF6)";
+        if (options.nodeStyle) style["border-radius"] = "15px 15px 15px 15px";
+        return style
     },
     resource: "Distortion",
     baseResource: "Time",
@@ -80,6 +82,7 @@ addLayer("fd", {
             rewardDescription: "Gain Distortion.",
             completionLimit: 1,
             onEnter() { layer1reset() },
+            onExit() { layer1reset() }, 
             style() {
                 if (inChallenge("fd",11) && getResetGain("fd").gte(new Decimal(2).pow(32).mul(infMs2()))) return {"background": "radial-gradient(#FF7F7F, #797EF6)", "border-radius": "15px 15px 15px 15px", "width": "540px", "height": "240px", "padding": "15px"}
                 else if (inChallenge("fd",11)) return {"background": "radial-gradient(#FF7F7F, #FF7F7F, #797EF6)", "border-radius": "15px 15px 15px 15px", "width": "540px", "height": "240px", "padding": "15px"}
@@ -294,7 +297,7 @@ addLayer("fd", {
     doReset(resettingLayer) {
         let keep=[];
         if (layers[resettingLayer].row > this.row) {layerDataReset("fd", keep);
-        if (hasMilestone("inf",3)) player[this.layer].upgrades = player[this.layer].upgrades.concat([13]);
+        if (hasAchievement("A",75)) player[this.layer].upgrades = player[this.layer].upgrades.concat([13]);
         }
     },
 })
