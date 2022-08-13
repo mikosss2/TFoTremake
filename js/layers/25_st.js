@@ -173,7 +173,7 @@ addLayer("st", {
             title: "Study 3.1 <br> U",
             description: "<b>+ ^0.67</b> 'U' value",
             cost() { 
-                cost = new Decimal(3)
+                cost = new Decimal(2)
                 if (hasUpgrade("st",22)) cost = cost.add(1)
                 if (hasUpgrade("st",23)) cost = cost.add(1)
                 return cost
@@ -209,7 +209,7 @@ addLayer("st", {
             title: "Study 3.3 <br> TM",
             description: "<b>Reduce</b> Time Fragment Generator and Warp Time's cost increase (x1.85 -> x1.75)",
             cost() { 
-                cost = new Decimal(2)
+                cost = new Decimal(3)
                 if (hasUpgrade("st",21)) cost = cost.add(1)
                 if (hasUpgrade("st",22)) cost = cost.add(1)
                 return cost
@@ -227,7 +227,7 @@ addLayer("st", {
             title: "Study 4.1 <br> U",
             description: "<b>+ x998.5</b> to the base of 'U' Upgrade 1.2",
             cost() { 
-                cost = new Decimal(1)
+                cost = new Decimal(2)
                 if (hasUpgrade("st",22)) cost = cost.add(1)
                 if (hasUpgrade("st",23)) cost = cost.add(1)
                 return cost
@@ -263,7 +263,7 @@ addLayer("st", {
             title: "Study 4.3 <br> TM",
             description: "<b>Enhance</b> T.F.G.E. effect (^0.90 -> ^0.95)",
             cost() { 
-                cost = new Decimal(2)
+                cost = new Decimal(1)
                 if (hasUpgrade("st",21)) cost = cost.add(1)
                 if (hasUpgrade("st",22)) cost = cost.add(1)
                 return cost

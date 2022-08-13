@@ -30,11 +30,13 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.5.n",
+	num: "1.5.n+1",
 	name: "Study Tree Update",
 }
 
 let changelog = `<h1>Changelog:</h1><br><br>
+<h3 style="background-image: radial-gradient(#FFE77B, #234F1E);-webkit-background-clip: text;color: transparent;">v1.5.n+1</h3><br>
+	- Fixed 5 Study Points hardcap<br><br>
 <h3 style="background-image: radial-gradient(#FFE77B, #234F1E);-webkit-background-clip: text;color: transparent;">v1.5.n</h3><br>
 	- Added stuffs about the study tree<br>
 	- Added more stuffs about study tree and fixed other stuffs <br> (again, too lazy to state them...)<br><br>
