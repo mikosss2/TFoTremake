@@ -102,7 +102,7 @@ addLayer("inf", {
             requirementDescription: "3 ∞",
             effectDescription() {
                 if (player["inf"].ms3amt.gte(infMs3().mul(900))) return "Gain free Time Fragments Generator based on Additive Research Upgrade <br> You have +" + format(player["inf"].ms3amt) + " free Time Fragment Generator <b style='color: red;'> Maxed </b> <br> Currently: +" + format(infMs3()) + " free Time Fragment Generator / second"
-                else return "Keep 4-D Upgrade 1.3 and Pres-Upgrade 2.2 (Works after this infinity) <br> Gain free Time Fragments Generator based on Additive Research Upgrade <br> You have +" + format(player["inf"].ms3amt) + " free Time Fragment Generator <br> Currently: +" + format(infMs3()) + " free Time Fragment Generator / second"
+                else return "Gain free Time Fragments Generator based on Additive Research Upgrade <br> You have +" + format(player["inf"].ms3amt) + " free Time Fragment Generator <br> Currently: +" + format(infMs3()) + " free Time Fragment Generator / second"
             },
             done() { return player["inf"].points.gte(3) },
             style() { 
